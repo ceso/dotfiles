@@ -5,5 +5,5 @@
         - Colors-Solarized: Solarized theme for vim - https://github.com/altercation/vim-colors-solarized
         
     - Zsh
-        - Antigen: In few words, Antigen is to zsh, what Vundle is to Vim - https://github.com/zsh-users/antigen
+        - Antigen: Antigen is to zsh, what Vundle is to Vim - https://github.com/zsh-users/antigen
         - 
