@@ -4,3 +4,6 @@
 [submodule "_antigen"]
 	path = _antigen
 	url = https://github.com/zsh-users/antigen
+[submodule "powerline-fonts"]
+	path = powerline-fonts
+	url = https://github.com/powerline/fonts
