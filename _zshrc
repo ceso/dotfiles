@@ -14,7 +14,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 
 # Load the theme
-#antigen theme agnoster
+antigen theme agnoster
 
 # Tell antigen that you're done
 antigen apply
@@ -24,3 +24,5 @@ alias ls="ls -lh --color=auto"
 alias la="ls -lah --color=auto"
 alias lz="ls -lZ --color=auto"
 alias laz="ls -laZ --color=auto"
+
+DEFAULT_USER=`whoami`

@@ -49,8 +49,7 @@ set term=xterm-256color
 " Turn on highlight text
 syntax enable
 set background=dark
-"colorscheme solarized
-colorscheme koehler
+colorscheme solarized
 highlight LineNr ctermfg=darkgray
 " Highlight current line
 set cursorline
