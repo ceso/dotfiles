@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+ZSHRC=~/.dotfiles/_zshrc
+
+case `uname` in
+    'Linux')  LS_CLR="--color=auto"  
+              LS_SEL="Z"
+              PS_PRM="-faux"
+              ;;
+    'Darwin') LS_CLR="-G"    
+              LS_SEL=""
+              PS_PRM="aux"
+              ;;
+esac                
+
+echo "alias ll=\"ls -lF ${LS_CLR}\"" >> "${ZSHRC}"
+echo "alias la=\"ls -laF ${LS_CLR}\"" >> "${ZSHRC}"
+echo "alias lh=\"ls -lahF ${LS_CLR}\"" >> "${ZSHRC}"
+echo "alias lz=\"ls -la${LS_SEL} ${LS_CLR}\"" >> "${ZSHRC}"
+echo "alias ps=\"ps ${PS_PRM}\"" >> "${ZSHRC}"
+echo "alias rs=\"rsync -avz\"" >> "${ZSHRC}"
+echo "alias rr=\"rsync -ravz\"" >> "${ZSHRC}"
+echo "alias np=\"nmap -P0\"" >> "${ZSHRC}"
+echo "alias gp=\"git push\"" >> "${ZSHRC}"
+echo "alias gm=\"git commit -m\"" >> "${ZSHRC}"
+echo "alias ga=\"git add\"" >> "${ZSHRC}"
+echo "alias gr=\"git rm\"" >> "${ZSHRC}"
+echo "alias gt=\"git status\"" >> "${ZSHRC}"
+echo "alias gl=\"git log\"" >> "${ZSHRC}"
+echo "alias grh=\"git reset HEAD\"" >> "${ZSHRC}"
+echo "alias di=\"df -i\"" >> "${ZSHRC}"
+echo "alias df=\"df -h\"" >> "${ZSHRC}"
+echo "alias vs=\"vim sftp://\"" >> "${ZSHRC}"
