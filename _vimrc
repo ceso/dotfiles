@@ -70,18 +70,3 @@ set mouse=a
 
 " Auto reload vimrc when editing it
 autocmd! BufWritePost .vimrc source ~/.vimrc
-
-" ==================== Folding ======================
-
-" Fold based on regular expression
-set foldmethod=expr
-set foldexpr=IsFold()
-
-function! IsFold()
-    let thisline = getline(v:lnum)
-    if match(thisline, '^\" =* .* =*$') >= 0
-        return ">1"
-    else
-        return "="    
-    endif
-endfunction    
