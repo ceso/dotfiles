@@ -19,16 +19,21 @@ echo -e "\nMail: <leandro.lemos.2.4@gmail.com>"
 }
 
 uninstallDotfiles() {
-   target="${HOME}/${1/_/.}"
+   for file in $( ls ${HOME}/.dotfiles | grep '^_.*' | cut -d '_' -f2 ); do     
 
-   if [ -e "${target}.df.bak" ] && [ -L "${target}" ]; then
-      unlink "${target}"
-      mv "${target}.ceso.bkp" "${target}"
-   elif [ -L "${target}" ]; then
-      unlink "${target}"        
-   else
-      echo -e "${GREEN}The dotfiles are already uninstalled, if you wish install them, please run ./install.sh -i${NC}"     
-   fi
+      bkpDotfile="${HOME}/${file}"     
+      linkDotfile="${HOME}/${file}"
+
+      if [ -e "${bkpDotfile}.ceso.bkp}" ] && [ -L "${linkDotfile}" ]; then
+         unlink "${linkDotfile}"
+         mv "${vkpDotfile}.ceso.bkp" "${HOME}/${file}"
+      elif [ -L "${HOME}/${file}" ]; then
+         unlink "${linkDotfile}"        
+      else
+         echo -e "${GREEN}The dotfiles are already uninstalled, if you wish install them, please run ./install.sh -i${NC}"     
+      fi
+
+   done   
 
    rm -rf "${dotfilesDirectory}"
 
