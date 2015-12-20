@@ -4,6 +4,7 @@ RED='\033[1;31m'
 GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
+dotfilesDirectory="${HOME}/.dotfiles"
 
 usage() {
 echo "Usage: ./install.sh [OPTION]"
@@ -17,9 +18,22 @@ echo -e "\nceso dotfiles config <https://github.com/ceso/dotfiles>"
 echo -e "\nMail: <leandro.lemos.2.4@gmail.com>"
 }
 
-#restoreDotfiles() {
-#uninstallDotfiles() {
+uninstallDotfiles() {
+   target="${HOME}/${1/_/.}"
 
+   if [ -e "${target}.df.bak" ] && [ -L "${target}" ]; then
+      unlink "${target}"
+      mv "${target}.ceso.bkp" "${target}"
+   elif [ -L "${target}" ]; then
+      unlink "${target}"        
+   else
+      echo -e "${GREEN}The dotfiles are already uninstalled, if you wish install them, please run ./install.sh -i${NC}"     
+   fi
+
+   rm -rf "${dotfilesDirectory}"
+
+   echo -e "${GREEN}Success, dotfiles was uninstalled and original dotfiles was restored.${NC}"
+}
 
 createLink() {
    source="${PWD}/${1}"
@@ -62,7 +76,6 @@ installDotfiles() {
    getOS=$( grep -o '\(Debian\|Centos\|Fedora\|Red Hat\)' /etc/os-release | uniq )
    packages="zsh vim git"
    gitRepository="https://github.com/ceso/dotfiles"
-   dotfilesDirectory="${HOME}/.dotfiles"
 
    if [ "${getOS}" = "Debian" ]; then
       sudo apt-get install -y -qq ${packages} 2> /dev/null
@@ -103,9 +116,7 @@ installDotfiles() {
 if [ "${1}" = "-i" ] || [ "${1}" = "--install" ]; then
    installDotfiles
 elif [ "${1}" = "-u" ] || [ "${1}" = "--uninstall" ]; then
-   echo "uninstallDotfiles"
-elif [ "${1}" = "-r" ] || [ "${1}" == "--restore" ]; then
-    echo "restoreDotfiles    "
+   uninstallDotfiles
 else    
    usage
 fi  
