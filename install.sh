@@ -13,7 +13,7 @@ echo -e "\n\t-h, --help\t print this information"
 echo -e "\t-i, --install\t generate backup of actual dotfiles and after install ceso dotfiles"
 echo -e "\t-u, --uninstall\t uninstall dotfiles"
 echo -e "\t-r, --restore\t restore original dotfiles config"
-echo -e "\nceso dotfiles config <https://github.com/ceso/dotfiles"
+echo -e "\nceso dotfiles config <https://github.com/ceso/dotfiles>"
 echo -e "\nMail: <leandro.lemos.2.4@gmail.com>"
 }
 
