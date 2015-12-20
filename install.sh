@@ -5,6 +5,19 @@ GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
+usage() {
+echo "Usage: ./install.sh [OPTION]"
+echo "Install, Uninstall or Restore dotfiles config."
+echo -e "\nArguments"
+echo -e "\t-h, --help\t print this information"
+echo -e "\t-i, --install\t generate backup of actual dotfiles and after install ceso dotfiles"
+echo -e "\t-u, --uninstall\t uninstall dotfiles"
+echo -e "\t-r, --restore\t restore original dotfiles config"
+echo -e "\nceso dotfiles config <https://github.com/ceso/dotfiles"
+echo -e "\t<leandro.lemos.2.4@gmail.com>"
+}
+
+#restoreDotfiles() {
 #uninstallDotfiles() {
 
 
@@ -94,5 +107,5 @@ elif [ "${1}" = "-u" ] || [ "${1}" = "--uninstall" ]; then
 elif [ "${1}" = "-r" ] || [ "${1}" == "--restore" ]; then
     echo "restoreDotfiles    "
 else    
-  echo "usage"
+   usage
 fi  
