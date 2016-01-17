@@ -24,7 +24,7 @@ uninstallDotfiles() {
       bkpDotfile="${HOME}/${file}"     
       linkDotfile="${HOME}/${file}"
 
-      if [ -e "${bkpDotfile}.ceso.bkp}" ] && [ -L "${linkDotfile}" ]; then
+      if [ -e "${bkpDotfile}.ceso.bkp" ] && [ -L "${linkDotfile}" ]; then
          unlink "${linkDotfile}"
          mv "${vkpDotfile}.ceso.bkp" "${HOME}/${file}"
       elif [ -L "${HOME}/${file}" ]; then
@@ -36,8 +36,11 @@ uninstallDotfiles() {
    done   
 
    rm -rf "${dotfilesDirectory}"
+   
+   if [ "${?}" -eq 0 ]; then
+      echo -e "${GREEN}Success, dotfiles was uninstalled and original dotfiles was restored.${NC}"
+   fi
 
-   echo -e "${GREEN}Success, dotfiles was uninstalled and original dotfiles was restored.${NC}"
 }
 
 createLink() {
