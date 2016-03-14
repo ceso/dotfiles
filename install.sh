@@ -1,3 +1,5 @@
+## TODO: Fix detect os
+
 #!/bin/bash
 
 RED='\033[1;31m'
