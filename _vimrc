@@ -47,10 +47,13 @@ set softtabstop=2
 set expandtab
 " Disable auto indentation
 filetype indent off
+" Disable auto comments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " ==================== Colors =======================
 
 set term=xterm-256color
+set t_Co=256
 " Turn on highlight text
 syntax enable
 set background=dark
@@ -58,7 +61,8 @@ colorscheme solarized
 highlight LineNr ctermfg=darkgray
 " Highlight current line
 set cursorline
-set t_Co=256
+" Highlight current column
+set cursorcolumn
 
 " ==================== UI Config ====================
 
