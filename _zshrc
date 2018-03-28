@@ -5,7 +5,7 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh)
 antigen bundle git
-#antigen bundle colored-man
+antigen bundle colored-man
 
 # Syntax highlighting bundle
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -20,7 +20,8 @@ antigen theme agnoster
 antigen apply
 
 # Aliases
-alias ls="ls -lh --color=auto"
+alias ls="ls -lrtF --colot=auto"
+alias ll="ls -lartF --color=auto"
 alias la="ls -lah --color=auto"
 alias lz="ls -lZ --color=auto"
 alias laz="ls -laZ --color=auto"

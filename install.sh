@@ -11,9 +11,9 @@ dotfilesDirectory="${HOME}/.dotfiles"
 usage() {
 echo "Usage: ./install.sh [OPTION]"
 echo "Install, Uninstall or Restore dotfiles config."
+echo -e "\nThe action by default is going to be install"
 echo -e "\nArguments"
 echo -e "\n\t-h, --help\t print this information"
-echo -e "\t-i, --install\t generate backup of actual dotfiles and after install ceso dotfiles"
 echo -e "\t-u, --uninstall\t uninstall dotfiles"
 echo -e "\t-r, --restore\t restore original dotfiles config"
 echo -e "\nceso dotfiles config <https://github.com/ceso/dotfiles>"
@@ -123,10 +123,10 @@ installDotfiles() {
        
 }
 
-if [ "${1}" = "-i" ] || [ "${1}" = "--install" ]; then
-   installDotfiles
+if [ "${1}" = "-h" ] || [ "${1}" = "--help" ]; then
+   usage         
 elif [ "${1}" = "-u" ] || [ "${1}" = "--uninstall" ]; then
    uninstallDotfiles
 else    
-   usage
+   installDotfiles        
 fi  

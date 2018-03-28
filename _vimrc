@@ -17,7 +17,9 @@ Plugin 'tell-k/vim-autopep8'
 
 Plugin 'altercation/vim-colors-solarized'
 
-" Plugin 'bling/vim-airline'
+Plugin 'rodjek/vim-puppet'
+
+Plugin 'pearofducks/ansible-vim'
 
 " All of your plugins must be addewd before the following line
 call vundle#end() " required
@@ -37,9 +39,9 @@ set smartcase
 " ==================== Identation ===================
 
 " Number of visual spaces per TAB
-set tabstop=4
+set tabstop=2
 " Number of spaces in tab when editing
-set softtabstop=4
+set softtabstop=2
 " Turn <TAB>s into spaces
 set expandtab
 
