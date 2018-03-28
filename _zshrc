@@ -2,16 +2,20 @@ source ~/.antigen/antigen.zsh
 
 # Load the oh-my-zsh's library
 antigen use oh-my-zsh
-
+#
 # Bundles from the default repo (robbyrussell's oh-my-zsh)
 antigen bundle git
-antigen bundle colored-man
 
 # Syntax highlighting bundle
 antigen bundle zsh-users/zsh-syntax-highlighting
-
 # History substring search bundle
 antigen bundle zsh-users/zsh-history-substring-search
+# Extra zsh completions
+antigen bundle zsh-users/zsh-completions
+# Auto sudo with double ESC in the begining of the line
+antigen bundle hcgraf/zsh-sudo
+# Colored man pages
+antigen bundle ael-code/zsh-colored-man-pages
 
 # Load the theme
 antigen theme agnoster
@@ -26,4 +30,4 @@ alias la="ls -lah --color=auto"
 alias lz="ls -lZ --color=auto"
 alias laz="ls -laZ --color=auto"
 
-DEFAULT_USER=`whoami`
+DEFAULT_USER=$( whoami )

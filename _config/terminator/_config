@@ -10,7 +10,7 @@
   go_right = <Primary><Alt>KP_0
   go_up = <Primary><Shift>u
   help = <Primary><Shift>exclam
-  hide_window = None
+  hide_window = F12
   layout_launcher = None
   new_terminator = <Primary><Shift>n
   new_window = <Primary>n

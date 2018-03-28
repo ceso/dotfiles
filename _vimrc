@@ -12,20 +12,21 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim' 
-
 Plugin 'tell-k/vim-autopep8'
-
 Plugin 'altercation/vim-colors-solarized'
-
 Plugin 'rodjek/vim-puppet'
-
 Plugin 'pearofducks/ansible-vim'
+Plugin 'ekalinin/dockerfile.vim'
+Plugin 'leshill/vim-json'
+Plugin 'mitchellh/vagrant'
+Plugin 'scrooloose/nerdtree'
+Plugin 'xuyuanp/nerdtree-git-plugin'
 
 " All of your plugins must be addewd before the following line
 call vundle#end() " required
 filetype plugin indent on " required
 
-" ==================== Search ====================
+" ==================== Search =======================
 
 " Search as characters are entered
 set incsearch 
@@ -36,7 +37,7 @@ set ignorecase
 " ...unless we type a capital
 set smartcase
 
-" ==================== Identation ===================
+" ============= Identation and comments =============
 
 " Number of visual spaces per TAB
 set tabstop=2
@@ -44,8 +45,10 @@ set tabstop=2
 set softtabstop=2
 " Turn <TAB>s into spaces
 set expandtab
+" Disable auto indentation
+filetype indent off
 
-" ==================== Colors ======================
+" ==================== Colors =======================
 
 set term=xterm-256color
 " Turn on highlight text
@@ -66,7 +69,15 @@ set wildmenu
 " Show the line/columnn number where the cursor is
 set ruler
 " Enable the use of the mouse 
-set mouse=a
+" set mouse=a
+
+" ==================== NERD tree ====================
+
+" Start NERD tree automatically if no name file was given
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Set a ctrl + n as a keybinding for open/close NERD tree
+map <C-n> :NERDTreeToggle<CR>
 
 " ==================== Autocmds =====================
 
