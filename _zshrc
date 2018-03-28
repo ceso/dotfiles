@@ -24,7 +24,7 @@ antigen theme agnoster
 antigen apply
 
 # Aliases
-alias ls="ls -lrtF --colot=auto"
+alias ls="ls -lrtF --color=auto"
 alias ll="ls -lartF --color=auto"
 alias la="ls -lah --color=auto"
 alias lz="ls -lZ --color=auto"
