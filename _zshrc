@@ -1,8 +1,7 @@
-source ~/.antigen/antigen.zsh
+source ~/.dotfiles/.antigen/antigen.zsh
 
 # Load the oh-my-zsh's library
 antigen use oh-my-zsh
-#
 # Bundles from the default repo (robbyrussell's oh-my-zsh)
 antigen bundle git
 
@@ -17,6 +16,7 @@ antigen bundle hcgraf/zsh-sudo
 # Colored man pages
 antigen bundle ael-code/zsh-colored-man-pages
 
+antigen bundle command-not-found
 # Load the theme
 antigen theme agnoster
 

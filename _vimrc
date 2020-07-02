@@ -1,11 +1,12 @@
-" ================ General Config =================
+"""""""" General Config
 
 " Choose no comatibility with legacy vi
 set nocompatible
 set encoding=utf-8 
 set shell=zsh
 
-" ==================== Plugins ====================
+"""""""" Plugins
+
 " set the runtime path to include vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim 
 call vundle#begin()
@@ -26,7 +27,7 @@ Plugin 'xuyuanp/nerdtree-git-plugin'
 call vundle#end() " required
 filetype plugin indent on " required
 
-" ==================== Search =======================
+"""""""" Search
 
 " Search as characters are entered
 set incsearch 
@@ -37,7 +38,7 @@ set ignorecase
 " ...unless we type a capital
 set smartcase
 
-" ============= Identation and comments =============
+"""""""" Identation and comments
 
 " Number of visual spaces per TAB
 set tabstop=2
@@ -50,7 +51,7 @@ filetype indent off
 " Disable auto comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" ==================== Colors =======================
+"""""""" Colors
 
 set term=xterm-256color
 set t_Co=256
@@ -64,7 +65,7 @@ set cursorline
 " Highlight current column
 set cursorcolumn
 
-" ==================== UI Config ====================
+"""""""" UI Config
 
 " Shown column to left with number line
 set number
@@ -75,7 +76,7 @@ set ruler
 " Enable the use of the mouse 
 " set mouse=a
 
-" ==================== NERD tree ====================
+"""""""" NERD tree
 
 " Start NERD tree automatically if no name file was given
 autocmd StdinReadPre * let s:std_in=1
@@ -83,7 +84,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Set a ctrl + n as a keybinding for open/close NERD tree
 map <C-n> :NERDTreeToggle<CR>
 
-" ==================== Autocmds =====================
+""""""""" Autocmds
 
 " Auto reload vimrc when editing it
 autocmd! BufWritePost .vimrc source ~/.vimrc
