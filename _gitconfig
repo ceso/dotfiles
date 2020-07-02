@@ -1,0 +1,6 @@
+[usr]
+  signingkey = 925A0C5862680070EF0AEB096B9949775AB6A5F4
+  email = leandrolemos24@gmail.com
+  name = Leandro Lemos
+[url "git@github.com:"]
+  insteadOf = https://github.com/
