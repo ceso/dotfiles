@@ -50,8 +50,10 @@ createLink(){
     mv "$target"{,.bkp}
   fi
 
-  if [[ -n $( echo "$source" | grep '_terminatorConfig' ) ]]; then
+  if [[ -n $( echo "$source" | grep '_terminator' ) ]]; then
     ln -sf "$source" "$HOME/.config/terminator/config"
+  elif [[ -n $( echo "$source" | grep '_i3' ) ]]; then
+    ln -sf "$source" "$HOME/.config/i3/config"
   else
     ln -sf "$source" "$target"
   fi
