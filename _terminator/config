@@ -1,0 +1,66 @@
+[global_config]
+  enabled_plugins = CustomCommandsMenu, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  suppress_multiple_term_dialog = True
+  title_use_system_font = False
+  title_font = Inconsolata-g for Powerline Bold 10
+[keybindings]
+  zoom_in = <Primary>KP_Add
+  zoom_out = <Primary>KP_Subtract
+  zoom_normal = <Primary><Shift>KP_Divide
+  cycle_next = None
+  cycle_prev = None
+  go_next = None
+  go_prev = None
+  go_up = <Alt>w
+  go_down = <Alt>s
+  go_left = <Alt>a
+  go_right = <Alt>d
+  rotate_cw = None
+  rotate_ccw = None
+  split_horiz = <Primary><Shift>h
+  split_vert = <Primary><Shift>b
+  close_term = <Super>w
+  close_window = <Super>q
+  resize_up = None
+  resize_down = None
+  resize_left = None
+  resize_right = None
+  move_tab_right = None
+  move_tab_left = None
+  scaled_zoom = <Primary><Shift>z
+  next_tab = <Primary>Right
+  prev_tab = <Primary>Left
+  hide_window = F12
+  new_window = <Primary><Shift>n
+  new_terminator = None
+  layout_launcher = None
+  help = <Alt>F1
+[profiles]
+  [[default]]
+    background_color = "#002b36"
+    cursor_color = "#839496"
+    font = Inconsolata-g for Powerline Bold 10
+    foreground_color = "#839496"
+    scrollback_infinite = True
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = e7911713-73cc-4cd9-98e1-ed1bf24ce90e
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:25
+      size = 1680, 1001
+      title = ceso@hogwarts: ~/.config/terminator
+      type = Window
+    [[[terminal1]]]
+      order = 0
+      parent = child0
+      profile = default
+      type = Terminal
+      uuid = e7911713-73cc-4cd9-98e1-ed1bf24ce90e
+[plugins]
