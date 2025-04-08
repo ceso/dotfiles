@@ -4,7 +4,6 @@ email = pablo.castellazzi@icloud.com
 
 [core]
 pager = /bin/cat
-excludesfile = ~/.gitignore
 
 [color]
 ui = auto
@@ -42,3 +41,7 @@ defaultBranch = master
 
 [pull]
 ff = only
+
+[include]
+path = config.local
+
