@@ -10,6 +10,6 @@ if status --is-interactive
     umask 0077
 end
 
-if test -f ~/.config/fish/fish_local
-    . ~/.config/fish/fish_local
+if test -f ~/.config/fish/config.local.fish
+    . ~/.config/fish/config.local.fish
 end
