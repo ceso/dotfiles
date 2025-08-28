@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# We use a resolution bigger than the actual screen so everything in camera
+# fits the actual screen size.
+
+OPTIONS=(
+    -force-metal
+    -screen-fullscreen 1
+    -screen-height 2016
+    -screen-width 3584
+)
+
+pushd "/Users/Shared/Epic Games/MagicTheGathering/MTGA.app"
+./Contents/MacOS/MTGA "${OPTIONS[@]}" 2>&1 >/dev/null &
+disown

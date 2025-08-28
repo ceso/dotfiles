@@ -4,8 +4,8 @@ IFS=$'\n\t'
 
 case ${1:-} in
 set)
-	if [[ -z ${2} ]]; then
-		echo >&2 "Usage: ${0:A:t} set <new-computer-name>"
+	if [[ -z ${2:-} ]]; then
+		echo >&2 "Usage: $(basename "$0") set <new-computer-name>"
 		exit 1
 	fi
 
@@ -21,7 +21,7 @@ get)
 	;;
 
 *)
-	echo >&2 "Usage: ${0:A:t} get | set <new-computer-name>"
+	echo >&2 "Usage: $(basename "$0") get | set <new-computer-name>"
 	exit 1
 	;;
 esac

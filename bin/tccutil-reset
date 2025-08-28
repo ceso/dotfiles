@@ -16,6 +16,7 @@ SERVICES=(
     "DeveloperTool"
     "FileProviderDomain"
     "FileProviderPresence"
+    "FocusStatus"
     "ListenEvent"
     "MediaLibrary"
     "Microphone"
