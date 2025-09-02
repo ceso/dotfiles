@@ -94,6 +94,9 @@ APT {
 };
 __EOF__
 
+# refresh metadata
+apt-get update
+
 # mark every package as automatically installed. doing this will schedule them
 # for purging.
 dpkg-query --show --showformat '${Package}\n' | xargs apt-mark auto >/dev/null
@@ -109,5 +112,4 @@ dpkg-query --show --showformat '${db:Status-Abbrev}%${Package}\n' |
     xargs apt-get purge
 
 # update the system
-apt-get update
 apt-get dist-upgrade

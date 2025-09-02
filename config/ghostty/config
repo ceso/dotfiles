@@ -1,0 +1,8 @@
+config-file = solarized-dark
+
+font-family = Fira Code
+font-size = 20
+quit-after-last-window-closed = true
+
+window-height = 50
+window-width = 200
