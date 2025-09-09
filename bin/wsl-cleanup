@@ -2,127 +2,45 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# DON'T USE THIS WITHOUT MODIFICATIONS
-
-# This script was made to clean Debian like systems of unused packages.
-# It will silently remove most of your system if you don't modify it!
-# You have been warned.
-
-write_debian_apt_sources() {
-    # preserve \t at the beginning of each line or <<- would not work
-    cat >/etc/apt/sources.list.d/debian.sources <<-__EOF__
-	Types: deb
-	URIs: http://deb.debian.org/debian
-	Suites: ${VERSION_CODENAME} ${VERSION_CODENAME}-updates ${VERSION_CODENAME}-backports
-	Components: main contrib non-free-firmware
-	Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
-
-	Types: deb
-	URIs: http://deb.debian.org/debian-security
-	Suites: ${VERSION_CODENAME}-security
-	Components: main contrib non-free-firmware
-	Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
-	__EOF__
-}
-
-write_ubuntu_apt_sources() {
-    # preserve \t at the beginning of each line or <<- would not work
-    cat >/etc/apt/sources.list.d/ubuntu.sources <<-__EOF__
-	Types: deb
-	URIs: http://archive.ubuntu.com/ubuntu/
-	Suites: ${VERSION_CODENAME} ${VERSION_CODENAME}-updates ${VERSION_CODENAME}-backports
-	Components: main restricted universe multiverse
-	Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-
-	Types: deb
-	URIs: http://security.ubuntu.com/ubuntu/
-	Suites: ${VERSION_CODENAME}-security
-	Components: main restricted universe multiverse
-	Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-	__EOF__
-}
+source $(dirname "$0")/deb-cleanup.sh
 
 export DEBIAN_FRONTEND=noninteractive
+export PACKAGES_TO_KEEP=(
+    # core os
+    apt-utils
+    cron
+    dbus
+    debconf-i18n
+    dhcpcd-base
+    libpam-systemd
+    linux-sysctl-defaults
+    logrotate
+    netbase
+    procps
+    sudo
+    systemd
+    systemd-sysv
+    udev
+    whiptail
 
-PACKAGES_TO_KEEP=(
-    ubuntu-minimal
-    ubuntu-release-upgrader-core
-    ubuntu-wsl
+    # networking
+    ifupdown
+    iproute2
+    iputils-ping
+    nftables
 
-    bash-completion
-    build-essential
-    dialog
-    dnsutils
-    iptables
+    # minimal console utilities
+    less
+    locales
+    nano
+    sensible-utils
+    vim-tiny
+
+    # extra
+    curl
+    git
     manpages
-    openssh-client
     socat
-    uidmap
+    vim
 )
-
-# shellcheck disable=SC1091
-source /etc/os-release
-
-case "${ID}" in
-debian) write_debian_apt_sources ;;
-ubuntu) write_ubuntu_apt_sources ;;
-*)
-    echo 2>&1 "[ERR] Unsupported distribution ${ID}"
-    exit 1
-    ;;
-esac
-
-docker_clean=/etc/apt/apt.conf.d/docker-clean
-if [[ -f $docker_clean ]]; then
-    echo 2>&1 "[WRN] ${docker_clean} is present. Consider removing it and use caches"
-    echo 2>&1 "[WRN] RUN \\"
-    echo 2>&1 "[WRN]   --mount=type=cache,target=/var/cache/apt \\"
-    echo 2>&1 "[WRN]   --mount=type=cache,target=/var/lib/apt \\"
-    echo 2>&1 "[WRN]   apt-get ..."
-fi
-
-# before using this and possibly break your system read apt.conf(5)
-cat >/etc/apt/apt.conf.d/90local <<__EOF__
-#clear APT::Never-MarkAuto-Sections;
-quiet "1";
-
-APT {
-    Install-Suggests "false";
-    Install-Recommends "false";
-
-    AutoRemove {
-        RecommendsImportant "false";
-        SuggestsImportant "false";
-    };
-
-    Get {
-        Assume-Yes "true";
-        AutomaticRemove "true";
-        Fix-Broken "true";
-        Fix-Missing "true";
-        Purge "true";
-        Show-Upgraded "true";
-        Upgrade-Allow-New "true";
-    };
-};
-__EOF__
-
-# refresh metadata
-apt-get update
-
-# mark every package as automatically installed. doing this will schedule them
-# for purging.
-dpkg-query --show --showformat '${Package}\n' | xargs apt-mark auto >/dev/null
-
-# the ones we want to keep, we "install" (which is a noop here). everything
-# that's not a dependency of this packages will be purged.
-apt-get install "${PACKAGES_TO_KEEP[@]}"
-
-# for good measure we remove everything else that may be broken.
-dpkg-query --show --showformat '${db:Status-Abbrev}%${Package}\n' |
-    { grep -Fv "ii " || test $? = 1; } |
-    cut -d% -f2 |
-    xargs apt-get purge
-
-# update the system
-apt-get dist-upgrade
+system_cleanup
