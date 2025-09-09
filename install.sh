@@ -27,7 +27,7 @@ for app in copier fish ghostty git; do
 done
 
 link "${SRC}/bin" "${HOME}/bin"
-link "${SRC}/vim" "${HOME}/vim"
 link "${SRC}/cspell.dictionary.txt" "${HOME}/.cspell.dictionary.txt"
 link "${SRC}/hushlogin" "${HOME}/.hushlogin"
+link "${SRC}/vim" "${HOME}/.vim"
 link "${SRC}/vimrc" "${HOME}/.vimrc"

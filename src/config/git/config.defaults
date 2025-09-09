@@ -25,6 +25,9 @@ prompt = false
 [gpg]
 format = ssh
 
+[gpg "ssh"]
+allowedSignersFile = ~/.config/git/allowed_signatures
+
 [help]
 autocorrect = 0
 
@@ -43,3 +46,6 @@ default = current
 
 [status]
 submodule = 1
+
+[tag]
+gpgsign = true
