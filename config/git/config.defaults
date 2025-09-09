@@ -1,0 +1,45 @@
+[alias]
+history = log --graph --pretty=format':%C(yellow)%h%Cblue%d%C(black) %s %Creset %an, %ad'
+sync = ! git fetch -vaptuf && git checkout master && git pull
+undo = reset --soft HEAD~1
+
+[apply]
+whitespace = warn
+
+[color]
+ui = auto
+diff = auto
+status = auto
+branch = auto
+
+[commit]
+gpgsign = true
+
+[core]
+pager = /bin/cat
+
+[difftool]
+tool = vimdiff
+prompt = false
+
+[gpg]
+format = ssh
+
+[help]
+autocorrect = 0
+
+[init]
+defaultBranch = master
+
+[mergetool]
+tool = vimdiff
+prompt = false
+
+[pull]
+ff = only
+
+[push]
+default = current
+
+[status]
+submodule = 1
