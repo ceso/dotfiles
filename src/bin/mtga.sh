@@ -13,5 +13,5 @@ OPTIONS=(
 )
 
 pushd "/Users/Shared/Epic Games/MagicTheGathering/MTGA.app"
-./Contents/MacOS/MTGA "${OPTIONS[@]}" 2>&1 >/dev/null &
+./Contents/MacOS/MTGA "${OPTIONS[@]}" >/dev/null 2>&1 &
 disown

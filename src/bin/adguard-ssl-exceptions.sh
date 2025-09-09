@@ -1,4 +1,6 @@
-#!/usr/bin/env fish
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
 
 # DOMAIN: 1password.com
 # DOMAIN: 1password.eu
@@ -19,5 +21,5 @@
 # DOMAIN: santander.com.uy
 # DOMAIN: web.whatsapp.com
 
-awk '/^# DOMAIN: / { print $3 }' (status --current-filename) |\
+awk '/^# DOMAIN: / { print $3 }' "${0}" |
     xargs defaults write com.adguard.mac.adguard SslExceptionDomains -array

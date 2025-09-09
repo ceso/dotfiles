@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+case ${1:-} in
+set)
+    if [[ -z ${2:-} ]]; then
+        echo >&2 "Usage: $(basename "$0") set <new-computer-name>"
+        exit 1
+    fi
+
+    for name in ComputerName HostName LocalHostName; do
+        sudo scutil --set "${name}" "${2}"
+    done
+    ;;
+
+get)
+    for name in ComputerName HostName LocalHostName; do
+        echo "${name}: $(scutil --get "${name}" || true)"
+    done
+    ;;
+
+*)
+    echo >&2 "Usage: $(basename "$0") get | set <new-computer-name>"
+    exit 1
+    ;;
+esac

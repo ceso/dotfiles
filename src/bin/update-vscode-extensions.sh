@@ -13,7 +13,7 @@ update_profiles() {
     cfg="${CODE_SETTINGS_DIR}/globalStorage/storage.json"
     while IFS= read -r profile; do
         code --profile "${profile}" --update-extensions
-    done < <(jq -r '.userDataProfiles[].name' <"${cfg}")
+    done < <(jq -r '.userDataProfiles[].name' <"${cfg}" || true)
 }
 
 verify_settings() {

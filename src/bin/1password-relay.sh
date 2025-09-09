@@ -9,10 +9,8 @@ SSH_AUTH_SOCK="${HOME}/.ssh/agent.sock"
 if ! pgrep socat >/dev/null 2>&1; then
     install --directory --mode 0700 "${SSH_AUTH_SOCK%/*}"
     rm -f "${SSH_AUTH_SOCK}"
-    (
-        setsid socat \
-            UNIX-LISTEN:"${SSH_AUTH_SOCK}",fork \
-            EXEC:"npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &
-    )
+    setsid socat \
+        UNIX-LISTEN:"${SSH_AUTH_SOCK}",fork \
+        EXEC:"npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &
 fi
-echo "export SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+echo "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"

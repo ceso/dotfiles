@@ -13,7 +13,7 @@ IFS=$'\n\t'
 
 container_warning() {
     local docker_clean=/etc/apt/apt.conf.d/docker-clean
-    if [[ -f $docker_clean ]]; then
+    if [[ -f ${docker_clean} ]]; then
         echo 2>&1 "[WRN] ${docker_clean} is present. Consider removing it and use caches"
         echo 2>&1 "[WRN] RUN \\"
         echo 2>&1 "[WRN]   --mount=type=cache,target=/var/cache/apt \\"
@@ -96,7 +96,7 @@ write_ubuntu_apt_sources() {
 }
 
 write_apt_sources() {
-    # shellcheck disable=SC1091
+    # shellcheck source=/etc/os-release
     source /etc/os-release
 
     case "${ID}" in
