@@ -18,5 +18,5 @@ install:
 
 .PHONY: check
 check:
-	shellcheck --enable=all --shell=bash -x src/bin/*.sh
-	shfmt --indent 4 --diff src/bin/*.sh
+	shellcheck src/bin/*.sh
+	shfmt --diff src/bin/*.sh

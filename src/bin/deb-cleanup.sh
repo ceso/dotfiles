@@ -96,7 +96,7 @@ write_ubuntu_apt_sources() {
 }
 
 write_apt_sources() {
-    # shellcheck source=/etc/os-release
+    # shellcheck source=SCRIPTDIR/os-release.debian
     source /etc/os-release
 
     case "${ID}" in
@@ -130,6 +130,10 @@ system_cleanup() {
     # The packages we want to keep are now installed. This actions is a noop
     # unless PACKAGES_TO_KEEP changed between runs. Everything that's not a
     # direct dependency of this packages will be purged.
+    if [[ "${DESTROY_MY_SYSTEM:-}" != "YES" ]]; then
+        apt-get --simulate install "${PACKAGES_TO_KEEP[@]}"
+        return
+    fi
     apt-get install "${PACKAGES_TO_KEEP[@]}"
 
     # For good measure we remove everything else that may be broken.

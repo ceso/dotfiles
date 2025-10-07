@@ -14,7 +14,7 @@ export PACKAGES_TO_KEEP=(
     udev whiptail
 
     # extra
-    ca-certificates curl git man-db openssh-client socat vim
+    curl git man-db openssh-client socat vim
 )
 
 system_cleanup

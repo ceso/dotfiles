@@ -22,7 +22,7 @@ link() {
 SRC=${PWD}/src
 
 mkdir -p "${HOME}/.config"
-for app in copier fish ghostty git; do
+for app in fish ghostty git; do
     link "${SRC}/config/${app}" "${HOME}/.config/${app}"
 done
 
