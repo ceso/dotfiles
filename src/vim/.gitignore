@@ -1,0 +1,9 @@
+/autoload/
+!/autoload/plug.vim
+
+/pack/
+/plugged/
+/tmp/backup/
+/tmp/undo/
+/tmp/tmp/swap/*.swp
+/.netrwhist

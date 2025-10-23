@@ -1,0 +1,13 @@
+Host *
+    AddKeysToAgent yes
+    Compression no
+    ControlMaster no
+    ControlPath /tmp/%u-%C
+    ControlPersist 300
+    ForwardAgent no
+    ForwardX11 no
+    GSSAPIAuthentication no
+    IdentityFile none
+    VisualHostKey no
+
+Include config.local

@@ -29,5 +29,10 @@ done
 link "${SRC}/bin" "${HOME}/bin"
 link "${SRC}/cspell.dictionary.txt" "${HOME}/.cspell.dictionary.txt"
 link "${SRC}/hushlogin" "${HOME}/.hushlogin"
+link "${SRC}/ssh" "${HOME}/.ssh"
 link "${SRC}/vim" "${HOME}/.vim"
 link "${SRC}/vimrc" "${HOME}/.vimrc"
+
+fish -c "yes | fish_config theme save Dracula"
+vim -es +PlugUpgrade +PlugUpdate +PlugClean +qa || true
+

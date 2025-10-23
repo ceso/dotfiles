@@ -1,6 +1,2 @@
 .DS_Store
 .cspell.dictionary.txt
-src/vim/autoload/
-src/vim/plugged/
-src/vim/tmp/swap/*.swp
-src/vim/.netrwhist
