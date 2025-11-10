@@ -34,4 +34,5 @@ link "${SRC}/vim" "${HOME}/.vim"
 link "${SRC}/vimrc" "${HOME}/.vimrc"
 
 fish -c "yes | fish_config theme save Dracula"
+mkdir -p ~/.vim/tmp/{backup,swap,undo}
 vim -es +PlugUpgrade +PlugUpdate +PlugClean +qa || true
