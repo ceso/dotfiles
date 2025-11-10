@@ -1,3 +1,3 @@
 function fish_title
-    echo (prompt_pwd)
+    prompt_pwd
 end
