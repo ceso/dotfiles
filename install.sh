@@ -35,4 +35,3 @@ link "${SRC}/vimrc" "${HOME}/.vimrc"
 
 fish -c "yes | fish_config theme save Dracula"
 vim -es +PlugUpgrade +PlugUpdate +PlugClean +qa || true
-

@@ -1,3 +1,4 @@
 enable=all
+disable=SC2250
 external-sources=true
 shell=bash

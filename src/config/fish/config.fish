@@ -1,7 +1,3 @@
-#!/usr/bin/env fish
-
-# set -U fish_greeting ""
-
 set -gx PATH /usr/local/bin /usr/bin /bin /usr/local/sbin /usr/sbin /sbin
 set -gx EDITOR /usr/bin/vim
 set -gx PAGER /usr/bin/less

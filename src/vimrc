@@ -20,7 +20,7 @@ set autoindent smartindent
 set backupdir=~/.vim/tmp/backup// directory=~/.vim/tmp/swap// undodir=~/.vim/tmp/undo//
 set expandtab softtabstop=4 tabstop=4 shiftwidth=4 shiftround nowrap
 set ignorecase incsearch infercase smartcase
-set foldcolumn=1 foldnestmax=3 foldmethod=indent
+set foldcolumn=1 foldnestmax=3 foldmethod=syntax
 set modeline modelines=2
 set nostartofline virtualedit=all
 set number numberwidth=4
@@ -31,7 +31,8 @@ filetype on
 filetype plugin on
 filetype indent on
 
-au BufReadPost * normal zR
+autocmd BufWinEnter * normal zR
+autocmd BufWritePre * :%s/\s\+$//e
 
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local

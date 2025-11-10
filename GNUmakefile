@@ -1,6 +1,8 @@
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
+SHELL_SCRIPTS = src/bin/*.sh
+
 
 .PHONY: all
 all: check install
@@ -18,5 +20,5 @@ install:
 
 .PHONY: check
 check:
-	shellcheck src/bin/*.sh
-	shfmt --diff src/bin/*.sh
+	shellcheck $(SHELL_SCRIPTS)
+	shfmt --diff $(SHELL_SCRIPTS)
