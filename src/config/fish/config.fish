@@ -23,7 +23,7 @@ if status is-interactive
         end
     end
 
-    set -l dircolors ~/.config/dircolors/solarized.256dark
+    set -l dircolors ~/.config/dircolors/solarized.ansi-dark
     set -gx LS_COLORS (dircolors $dircolors | sh -c '. /dev/stdin; echo -n "${LS_COLORS}"')
 end
 
