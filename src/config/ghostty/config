@@ -1,4 +1,3 @@
-config-file = dracula_pro
 font-family = JetBrains Mono
 font-size = 20
 quit-after-last-window-closed = true
