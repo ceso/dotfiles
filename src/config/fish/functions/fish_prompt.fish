@@ -1,23 +1,47 @@
-function __prompt_host
+set -g __prompt_color_env purple
+set -g __prompt_color_git yellow
+set -g __prompt_color_pwd cyan
+
+function __prompt_out
+    set_color $argv[1]
+    echo -ns $argv[2..]
+    set_color normal
+end
+
+function __prompt_env
+    set -l environment
     if set -q WSL_DISTRO_NAME
-        echo -n "WSL/$WSL_DISTRO_NAME"
+        set environment "wsl:$WSL_DISTRO_NAME"
     else if set -q AWS_ENVIRONMENT
-        echo -n "AWS/$AWS_ENVIRONMENT"
+        set environment "aws:$AWS_ENVIRONMENT"
     else
-        echo -n $hostname
+        set environment "$user@$hostname"
+    end
+    __prompt_out $__prompt_color_env $environment
+end
+
+function __prompt_git
+    set -l branch (git branch --show-current 2>/dev/null)
+    if test $status -eq 0
+        __prompt_out $__prompt_color_git "[$branch]"
+    end
+end
+
+function __prompt_status
+    for exit_code in $argv
+        if test $exit_code -ne 0
+            __prompt_out red "[$exit_code]"
+            break
+        end
     end
 end
 
 function fish_prompt
-    set_color $fish_color_host
-    __prompt_host
-
-    set_color $fish_color_cwd
-    echo -n " $(prompt_pwd)" # prompt_pwd prints LF unless captured
-
-    set_color yellow
-    __fish_git_prompt " [%s]"
-
-    set_color normal
-    echo -e "\n> "
+    set -l last_status $status $pipestatus
+    echo -n \
+        (__prompt_env) \
+        (__prompt_out $__prompt_color_pwd (prompt_pwd)) \
+        (__prompt_git) \
+        (__prompt_status $last_status) \
+        "❯ "
 end

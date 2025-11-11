@@ -33,6 +33,13 @@ link "${SRC}/ssh" "${HOME}/.ssh"
 link "${SRC}/vim" "${HOME}/.vim"
 link "${SRC}/vimrc" "${HOME}/.vimrc"
 
-fish -c "yes | fish_config theme save Dracula"
+dircolors=~/.config/dircolors/solarized.256dark
+if ! test -f "${dircolors}"; then
+    mkdir -p "$(dirname "${dircolors}")"
+    url=https://raw.githubusercontent.com/seebi/dircolors-solarized/refs/heads/master/dircolors.256dark
+    curl -o "${dircolors}" -fsSL "${url}"
+fi
+
+fish -c "yes | fish_config theme save 'Solarized Dark'"
 mkdir -p ~/.vim/tmp/{backup,swap,undo}
 vim -es +PlugUpgrade +PlugUpdate +PlugClean +qa || true
