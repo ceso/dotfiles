@@ -25,8 +25,10 @@ if status is-interactive
 
     set -l dircolors ~/.config/dircolors/bliss
     set -gx LS_COLORS (dircolors $dircolors | sh -c '. /dev/stdin; echo -n "${LS_COLORS}"')
-end
 
-if test -f ~/.config/fish/config.local.fish
-    . ~/.config/fish/config.local.fish
+    zoxide init fish | source
+
+    if test -f ~/.config/fish/config.local.fish
+        . ~/.config/fish/config.local.fish
+    end
 end

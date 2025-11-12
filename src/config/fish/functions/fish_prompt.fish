@@ -30,7 +30,6 @@ end
 function __prompt_pwd
     set -l directory (prompt_pwd)
     __prompt_out $__prompt_color_env (prompt_pwd)
-    __terminal_pwd
 end
 
 function __prompt_status
