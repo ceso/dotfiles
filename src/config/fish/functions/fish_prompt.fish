@@ -27,6 +27,12 @@ function __prompt_git
     end
 end
 
+function __prompt_pwd
+    set -l directory (prompt_pwd)
+    __prompt_out $__prompt_color_env (prompt_pwd)
+    __terminal_pwd
+end
+
 function __prompt_status
     for exit_code in $argv
         if test $exit_code -ne 0
@@ -40,7 +46,7 @@ function fish_prompt
     set -l last_status $status $pipestatus
     echo -n \
         (__prompt_env) \
-        (__prompt_out $__prompt_color_pwd (prompt_pwd)) \
+        (__prompt_pwd) \
         (__prompt_git) \
         (__prompt_status $last_status) \
         "❯ "
