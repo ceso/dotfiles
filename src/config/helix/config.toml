@@ -1,0 +1,22 @@
+theme = "catppuccin_mocha"
+
+[editor]
+color-modes = true
+cursorline = true
+end-of-line-diagnostics = "hint"
+rulers = [78, 88]
+trim-final-newlines = true
+trim-trailing-whitespace = true
+true-color = true
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+
+[editor.lsp]
+display-inlay-hints = true
+
+[editor.whitespace.render]
+tab = "all"
+
+[editor.whitespace.characters]
+tabpad = "·"
