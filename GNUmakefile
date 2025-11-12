@@ -1,7 +1,7 @@
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-SHELL_SCRIPTS = src/bin/*.sh
+SHELL_SCRIPTS = $(shell find . -type f -name '*.sh')
 
 
 .PHONY: all

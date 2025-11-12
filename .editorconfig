@@ -13,4 +13,4 @@ indent_style = tab
 indent_size = 4
 indent_style = space
 shell_variant = bash
-simplify = true
+simplify = false
