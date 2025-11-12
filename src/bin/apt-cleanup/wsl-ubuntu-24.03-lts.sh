@@ -12,6 +12,9 @@ export PACKAGES_TO_KEEP=(
     cron logrotate manpages networkd-dispatcher rsyslog snapd systemd-hwe-hwdb
     systemd-resolved systemd-timesyncd unattended-upgrades update-manager-core
     update-motd
+
+    # custom packages
+    make podman slirp4netns uidmap
 )
 
 apt_cleanup

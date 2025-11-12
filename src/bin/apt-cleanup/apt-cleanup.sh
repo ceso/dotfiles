@@ -10,6 +10,25 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+declare -a APT_MARK_AUTO
+declare -a APT_MARK_HOLD
+declare -a APT_MARK_MANUAL
+
+backup_apt_marks() {
+    mapfile -t APT_MARK_AUTO < <(apt-mark showauto || true)
+    mapfile -t APT_MARK_HOLD < <(apt-mark showhold || true)
+    mapfile -t APT_MARK_MANUAL < <(apt-mark showmanual || true)
+}
+
+restore_apt_marks() {
+    test "${#APT_MARK_AUTO[@]}" -gt 0 &&
+        printf "%s\n" "${APT_MARK_AUTO[@]}" | xargs apt-mark auto >/dev/null
+    test "${#APT_MARK_HOLD[@]}" -gt 0 &&
+        printf "%s\n" "${APT_MARK_HOLD[@]}" | xargs apt-mark hold >/dev/null
+    test "${#APT_MARK_MANUAL[@]}" -gt 0 &&
+        printf "%s\n" "${APT_MARK_MANUAL[@]}" | xargs apt-mark manual >/dev/null
+}
+
 container_warning() {
     local docker_clean=/etc/apt/apt.conf.d/docker-clean
     if [[ -f ${docker_clean} ]]; then
@@ -112,7 +131,7 @@ write_apt_sources() {
 }
 
 apt_cleanup() {
-    if [[ -z "${PACKAGES_TO_KEEP:-}" ]]; then
+    if [[ -z ${PACKAGES_TO_KEEP:-} ]]; then
         echo 2>&1 "[ERR] PACKAGES_TO_KEEP is empty or undefined."
         exit 2
     fi
@@ -126,14 +145,16 @@ apt_cleanup() {
 
     # Mark every package as automatically installed, in doing so they get
     # scheduled for purging.
+    backup_apt_marks
     dpkg-query --show --showformat '${Package}\n' |
         xargs apt-mark auto >/dev/null
 
     # The packages we want to keep are now installed. This actions is a noop
     # unless PACKAGES_TO_KEEP changed between runs. Everything that's not a
     # direct dependency of this packages will be purged.
-    if [[ "${DESTROY_MY_SYSTEM:-}" != "YES" ]]; then
+    if [[ ${DESTROY_MY_SYSTEM:-} != "YES" ]]; then
         apt-get --simulate install "${PACKAGES_TO_KEEP[@]}"
+        restore_apt_marks
         return
     fi
     apt-get --assume-yes --auto-remove install "${PACKAGES_TO_KEEP[@]}"
