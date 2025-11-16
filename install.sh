@@ -22,7 +22,7 @@ link() {
 SRC=${PWD}/src
 
 mkdir -p "${HOME}/.config"
-for app in fish ghostty git helix; do
+for app in fish ghostty git; do
     link "${SRC}/config/${app}" "${HOME}/.config/${app}"
 done
 
@@ -33,13 +33,6 @@ link "${SRC}/homebrew" "${HOME}/.homebrew"
 link "${SRC}/ssh" "${HOME}/.ssh"
 link "${SRC}/vim" "${HOME}/.vim"
 link "${SRC}/vimrc" "${HOME}/.vimrc"
-
-dircolors=~/.config/dircolors
-if ! test -d "${dircolors}"; then
-    mkdir -p "${dircolors}"
-    url=https://raw.githubusercontent.com/ss77a/Catppuccin-dircolors/refs/heads/master/bliss.dircolors
-    curl -o "${dircolors}/bliss" -fsSL "${url}"
-fi
 
 fish_themes=~/.config/fish/themes
 if ! test -d "${fish_themes}"; then
