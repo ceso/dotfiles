@@ -1,5 +1,6 @@
 font-family = JetBrains Mono
 font-size = 20
 quit-after-last-window-closed = true
+theme = catppuccin-mocha
 window-height = 50
 window-width = 200

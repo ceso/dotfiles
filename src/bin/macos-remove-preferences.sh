@@ -12,11 +12,9 @@ locations=(
     "${HOME}/Library/HTTPStorages/"
     "${HOME}/Library/Internet Plug-Ins/"
     "${HOME}/Library/LaunchAgents/"
-    "${HOME}/Library/LaunchDaemons/"
     "${HOME}/Library/Logs/"
     "${HOME}/Library/PreferencePanes/"
     "${HOME}/Library/Preferences/"
-    #"${HOME}/Library/Saved Application State/"
     "${HOME}/Library/WebKit/"
 )
 

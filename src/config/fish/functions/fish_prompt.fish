@@ -15,7 +15,7 @@ function __prompt_env
     else if set -q AWS_ENVIRONMENT
         set environment "aws:$AWS_ENVIRONMENT"
     else
-        set environment "$user@$hostname"
+        set environment $hostname
     end
     __prompt_out $__prompt_color_env $environment
 end
@@ -29,7 +29,7 @@ end
 
 function __prompt_pwd
     set -l directory (prompt_pwd)
-    __prompt_out $__prompt_color_env (prompt_pwd)
+    __prompt_out $__prompt_color_pwd (prompt_pwd)
 end
 
 function __prompt_status
@@ -43,10 +43,10 @@ end
 
 function fish_prompt
     set -l last_status $status $pipestatus
-    echo -n \
+    echo -en \
         (__prompt_env) \
         (__prompt_pwd) \
         (__prompt_git) \
         (__prompt_status $last_status) \
-        "❯ "
+        "\n❯ "
 end
