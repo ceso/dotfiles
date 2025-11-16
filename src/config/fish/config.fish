@@ -15,9 +15,6 @@ if status is-interactive
         brew
     for bin in $homebrew
         if test -x $bin
-            set -gx HOMEBREW_NO_AUTO_UPDATE 1
-            set -gx HOMEBREW_NO_ENV_HINTS 1
-            set -gx HOMEBREW_NO_ANALYTICS 1
             eval ($bin shellenv)
             break
         end

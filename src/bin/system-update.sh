@@ -15,7 +15,7 @@ if command -v brew >/dev/null; then
     brew update
     brew upgrade
     brew autoremove
-    brew cleanup --prune=all -s
+    brew cleanup --prune=all --scrub
 fi
 
 if command -v vim >/dev/null; then
