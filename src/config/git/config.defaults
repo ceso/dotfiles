@@ -16,7 +16,7 @@ branch = auto
 gpgsign = true
 
 [core]
-pager = /bin/cat
+pager = bat
 
 [difftool]
 tool = vimdiff
