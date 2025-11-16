@@ -19,10 +19,18 @@ link() {
     fi
 }
 
+install_file() {
+    local dname="$1"
+    local fname="$2"
+    local url="$3"
+    test -d "${dname}" || mkdir -p "${dname}"
+    test -f "${fname}" || curl -o "${dname}/${fname}" -fsSL "${url}"
+}
+
 SRC=${PWD}/src
 
 mkdir -p "${HOME}/.config"
-for app in bat fish ghostty git; do
+for app in bat fish ghostty git micro; do
     link "${SRC}/config/${app}" "${HOME}/.config/${app}"
 done
 
@@ -34,12 +42,13 @@ link "${SRC}/ssh" "${HOME}/.ssh"
 link "${SRC}/vim" "${HOME}/.vim"
 link "${SRC}/vimrc" "${HOME}/.vimrc"
 
-fish_themes=~/.config/fish/themes
-if ! test -d "${fish_themes}"; then
-    mkdir -p "${fish_themes}"
-    url=https://raw.githubusercontent.com/catppuccin/fish/refs/heads/main/themes/Catppuccin%20Mocha.theme
-    curl -o "${fish_themes}/Catppuccin Mocha.theme" -fsSL "${url}"
-fi
+install_file \
+    ~/.config/micro/colorschemes "catppuccin-mocha.micro" \
+    https://raw.githubusercontent.com/catppuccin/micro/refs/heads/main/themes/catppuccin-mocha.micro
+
+install_file \
+    ~/.config/fish/themes "Catppuccin Mocha.theme" \
+    https://raw.githubusercontent.com/catppuccin/fish/refs/heads/main/themes/Catppuccin%20Mocha.theme
 
 fish -c "yes | fish_config theme save 'Catppuccin Mocha'"
 mkdir -p ~/.vim/tmp/{backup,swap,undo}
