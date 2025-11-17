@@ -13,7 +13,7 @@ if status is-interactive
         eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
     end
 
-    set -gx EDITOR micro
+    set -gx EDITOR vim
     set -gx PAGER bat
     set -gx COPIER_SETTINGS_PATH ~/.config/copier/settings.yaml
 

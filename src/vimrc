@@ -1,16 +1,9 @@
 " ~/.vimrc
 
-set nocompatible
-
-set backspace=eol,indent,start
 set cursorline
-set encoding=utf-8
-set esckeys
-set fixeol
-set formatoptions=cqrt
-set hidden
+set formatoptions=tcqr
 set laststatus=2
-set list listchars=eol:¬,tab:▸\ ,trail:.,precedes:<,extends:>
+set listchars=eol:¬,tab:▸\ ,trail:.,precedes:<,extends:>
 set ruler
 set scrolloff=10
 set whichwrap=<,>,h,l
@@ -20,20 +13,41 @@ set autoindent smartindent
 set backupdir=~/.vim/tmp/backup// directory=~/.vim/tmp/swap// undodir=~/.vim/tmp/undo//
 set expandtab softtabstop=4 tabstop=4 shiftwidth=4 shiftround nowrap
 set ignorecase incsearch infercase smartcase
-set foldcolumn=1 foldnestmax=3 foldmethod=syntax
-set modeline modelines=2
-set nostartofline virtualedit=all
 set number numberwidth=4
-set textwidth=88 colorcolumn=+1
+set textwidth=78 colorcolumn=+1
+set virtualedit=all
 
-syntax on
-filetype on
-filetype plugin on
-filetype indent on
+function! s:TrimWhitespace()
+  if !getbufvar('%', '&modifiable')
+    return
+  endif
 
-autocmd BufWinEnter * normal zR
-autocmd BufWritePre * :%s/\s\+$//e
+  let s:view = winsaveview()
+  try
+    silent! keeppatterns keepjumps %s/\s\+$//e
+    silent! keeppatterns keepjumps %s/\n\+\%$//e
+  finally
+    call winrestview(s:view)
+  endtry
+endfunction
+
+augroup vimrc
+  autocmd!
+  autocmd BufWritePre,FileWritePre * :call s:TrimWhitespace()
+augroup end
+
+call plug#begin()
+  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+  Plug 'itchyny/lightline.vim'
+  Plug 'editorconfig/editorconfig-vim'
+call plug#end()
+
+set termguicolors
+colorscheme catppuccin_mocha
+
+set noshowmode
+let g:lightline = {'colorscheme': 'catppuccin_mocha'}
 
 if filereadable(expand("~/.vimrc.local"))
-    source ~/.vimrc.local
+  source ~/.vimrc.local
 endif

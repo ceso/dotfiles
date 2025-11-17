@@ -1,7 +1,6 @@
 brew "bat"
 brew "fish"
 brew "fzf"
-brew "micro"
 brew "ripgrep"
 brew "shellcheck"
 brew "shfmt"

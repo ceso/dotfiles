@@ -30,7 +30,7 @@ install_file() {
 SRC=${PWD}/src
 
 mkdir -p "${HOME}/.config"
-for app in bat fish ghostty git micro; do
+for app in bat fish ghostty git; do
     link "${SRC}/config/${app}" "${HOME}/.config/${app}"
 done
 
@@ -52,4 +52,4 @@ install_file \
 
 fish -c "yes | fish_config theme save 'Catppuccin Mocha'"
 mkdir -p ~/.vim/tmp/{backup,swap,undo}
-vim -es +PlugUpgrade +PlugUpdate +PlugClean +qa || true
+vim +PlugUpgrade +PlugUpdate +PlugClean +qa
