@@ -43,8 +43,8 @@ link "${SRC}/vim" "${HOME}/.vim"
 link "${SRC}/vimrc" "${HOME}/.vimrc"
 
 install_file \
-    ~/.config/micro/colorschemes "catppuccin-mocha.micro" \
-    https://raw.githubusercontent.com/catppuccin/micro/refs/heads/main/themes/catppuccin-mocha.micro
+    ~/.config/eza theme.yml \
+    https://raw.githubusercontent.com/catppuccin/eza/refs/heads/main/themes/mocha/catppuccin-mocha-blue.yml
 
 install_file \
     ~/.config/fish/themes "Catppuccin Mocha.theme" \

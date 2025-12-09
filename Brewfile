@@ -1,4 +1,7 @@
 brew "bat"
+brew "bat-extras"
+brew "eza"
+brew "fd"
 brew "fish"
 brew "fzf"
 brew "ripgrep"
