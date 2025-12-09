@@ -2,9 +2,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-if command -v apt-get >/dev/null; then
-    sudo apt-get update
-    sudo apt-get --assume-yes upgrade
+if command -v apt >/dev/null; then
+    sudo apt update
+    sudo apt full-upgrade --assume-yes
+    sudo apt autoremove --purge
 fi
 
 if command -v snap >/dev/null; then
