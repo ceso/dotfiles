@@ -2,27 +2,30 @@ umask 0077
 set -gx LANG "en_US.UTF-8"
 set -gx LC_ALL "en_US.UTF-8"
 
-set -e -Ugl PATH fish_user_paths
-fish_add_path --path --append (
-    path resolve /usr/local/bin /usr/bin /bin /usr/local/sbin /usr/sbin /sbin
-)
-
 if status is-interactive
+    set -e -Ugl PATH
+    fish_add_path --path --append (
+        path resolve /snap/bin /usr/local/bin /usr/bin /bin /usr/local/sbin /usr/sbin /sbin
+    )
+
+    set -e -Ugl fish_user_paths
     fish_add_path ~/bin
     fish_add_path ~/.local/bin
 
     switch (uname)
     case Darwin
-        eval (/usr/local/bin/brew shellenv)
+        /usr/local/bin/brew shellenv | source
     case Linux
-        eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
     end
 
     set -gx EDITOR vim
     set -gx PAGER bat
     set -gx COPIER_SETTINGS_PATH ~/.config/copier/settings.yaml
+    set -gx FZF_DEFAULT_COMMAND 'fd --type=file --hidden --follow'
 
     batman --export-env | source
+    fzf --fish | source
     zoxide init fish | source
 
     alias cat=bat
