@@ -30,7 +30,7 @@ install_file() {
 SRC=${PWD}/src
 
 mkdir -p "${HOME}/.config"
-for app in bat fish ghostty git; do
+for app in bat eza fish ghostty git zellij; do
     link "${SRC}/config/${app}" "${HOME}/.config/${app}"
 done
 
@@ -43,13 +43,8 @@ link "${SRC}/vim" "${HOME}/.vim"
 link "${SRC}/vimrc" "${HOME}/.vimrc"
 
 install_file \
-    ~/.config/eza theme.yml \
-    https://raw.githubusercontent.com/catppuccin/eza/refs/heads/main/themes/mocha/catppuccin-mocha-blue.yml
-
-install_file \
     ~/.config/fish/themes "Catppuccin Mocha.theme" \
     https://raw.githubusercontent.com/catppuccin/fish/refs/heads/main/themes/Catppuccin%20Mocha.theme
 
-fish -c "yes | fish_config theme save 'Catppuccin Mocha'"
-mkdir -p ~/.vim/tmp/{backup,swap,undo}
+fish -c "yes | fish_config theme save 'Catppuccin Mocha' --color-theme=dark"
 vim +PlugUpgrade +PlugUpdate +PlugClean +qa
