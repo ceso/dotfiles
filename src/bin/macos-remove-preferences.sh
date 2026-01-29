@@ -3,32 +3,32 @@ set -euo pipefail
 IFS=$'\t\n'
 
 locations=(
-    "${HOME}/Library/Application Scripts/"
-    "${HOME}/Library/Application Support/"
-    "${HOME}/Library/Caches/"
-    "${HOME}/Library/Containers/"
-    "${HOME}/Library/Cookies/"
-    "${HOME}/Library/Group Containers/"
-    "${HOME}/Library/HTTPStorages/"
-    "${HOME}/Library/Internet Plug-Ins/"
-    "${HOME}/Library/LaunchAgents/"
-    "${HOME}/Library/Logs/"
-    "${HOME}/Library/PreferencePanes/"
-    "${HOME}/Library/Preferences/"
-    "${HOME}/Library/WebKit/"
+	"${HOME}/Library/Application Scripts/"
+	"${HOME}/Library/Application Support/"
+	"${HOME}/Library/Caches/"
+	"${HOME}/Library/Containers/"
+	"${HOME}/Library/Cookies/"
+	"${HOME}/Library/Group Containers/"
+	"${HOME}/Library/HTTPStorages/"
+	"${HOME}/Library/Internet Plug-Ins/"
+	"${HOME}/Library/LaunchAgents/"
+	"${HOME}/Library/Logs/"
+	"${HOME}/Library/PreferencePanes/"
+	"${HOME}/Library/Preferences/"
+	"${HOME}/Library/WebKit/"
 )
 
 options=()
 
 if [[ $# -gt 0 ]]; then
-    options+=(-iname "*$1*")
-    shift
+	options+=(-iname "*$1*")
+	shift
 fi
 
 if [[ $# -gt 0 ]]; then
-    for pattern in "${@}"; do
-        options+=(-o -iname "*${pattern}*")
-    done
+	for pattern in "${@}"; do
+		options+=(-o -iname "*${pattern}*")
+	done
 fi
 
 find "${locations[@]}" "${options[@]}"

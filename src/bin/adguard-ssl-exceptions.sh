@@ -22,4 +22,4 @@ IFS=$'\n\t'
 # DOMAIN: web.whatsapp.com
 
 awk '/^# DOMAIN: / { print $3 }' "${0}" |
-    xargs defaults write com.adguard.mac.adguard SslExceptionDomains -array
+	xargs defaults write com.adguard.mac.adguard SslExceptionDomains -array

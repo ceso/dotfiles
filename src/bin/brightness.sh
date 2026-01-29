@@ -6,11 +6,11 @@ IFS=$'\n\t'
 
 case "${1:-}" in
 1 | 2 | 3 | 4)
-    echo "$(($1 * 25))" | shortcuts run Brightness
-    ;;
+	echo "$(($1 * 25))" | shortcuts run Brightness
+	;;
 
 *)
-    echo >&2 "Usage: brightness < 1 | 2 | 3 | 4 >"
-    exit 1
-    ;;
+	echo >&2 "Usage: brightness < 1 | 2 | 3 | 4 >"
+	exit 1
+	;;
 esac

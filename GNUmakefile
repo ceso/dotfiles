@@ -22,3 +22,8 @@ install:
 check:
 	shellcheck $(SHELL_SCRIPTS)
 	shfmt --diff $(SHELL_SCRIPTS)
+
+
+.PHONY: brewfile
+brewfile:
+	brew bundle dump --force --formula
