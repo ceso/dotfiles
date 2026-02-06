@@ -1,6 +1,4 @@
+config-file = ?config.local
 font-family = JetBrainsMono Nerd Font
-font-size = 14
 quit-after-last-window-closed = true
 theme = Catppuccin Mocha
-window-width = 80
-window-height = 25

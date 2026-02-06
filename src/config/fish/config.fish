@@ -1,5 +1,7 @@
 status is-interactive; or return
 
+# sudo launchctl config user umask 077
+# sudo chfn -o other='umask=077'
 if test (umask) != "0077"
     echo >&2 "[WRN] default umask is $(umask). Forcing 0077."
     umask 0077
