@@ -2,6 +2,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+if command -v softwareupdate; then
+	softwareupdate --install --all
+fi
+
 if command -v apt >/dev/null; then
 	sudo apt update
 	sudo apt full-upgrade --assume-yes
