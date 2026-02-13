@@ -35,7 +35,6 @@ for app in bat eza fish ghostty git zellij; do
 done
 
 link "${SRC}/bin" "${HOME}/bin"
-link "${SRC}/cspell.dictionary.txt" "${HOME}/.cspell.dictionary.txt"
 link "${SRC}/hushlogin" "${HOME}/.hushlogin"
 link "${SRC}/homebrew" "${HOME}/.homebrew"
 link "${SRC}/ssh" "${HOME}/.ssh"
