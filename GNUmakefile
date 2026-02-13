@@ -1,7 +1,8 @@
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-SHELL_SCRIPTS := $(shell git ls-files -- '*.sh')
+
+SHELL_SCRIPTS := $(shell git ls-files -- '**/*.sh')
 
 
 .PHONY: all
@@ -27,3 +28,10 @@ check:
 .PHONY: brewfile
 brewfile:
 	brew bundle dump --force --formula
+
+
+.PHONY: venv
+venv:
+	rm -rf .venv
+	uv venv --python 3.14
+	uv pip install --requirements requirements.txt
