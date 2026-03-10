@@ -25,11 +25,6 @@ check:
 	shfmt --diff $(SHELL_SCRIPTS)
 
 
-.PHONY: brewfile
-brewfile:
-	brew bundle dump --force --formula
-
-
 .PHONY: venv
 venv:
 	rm -rf .venv

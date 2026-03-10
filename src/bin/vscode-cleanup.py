@@ -32,7 +32,7 @@ def abort(*args: object) -> typing.NoReturn:
 def get_vscode_dir() -> pathlib.Path:
     match uname := platform.system():
         case "Darwin":
-            settings_base = pathlib.Path("~/Library/Application Support/Code/User")
+            settings_base = pathlib.Path("~/Library/Application Support")
         case "Linux":
             XDG_CONFIG_HOME = pathlib.Path(
                 os.environ.get("XDG_CONFIG_HOME", "~/.config")
