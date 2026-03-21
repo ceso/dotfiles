@@ -1,5 +1,6 @@
 " ~/.vimrc
 
+set nocompatible
 set cursorline
 set formatoptions=tcqr
 set laststatus=2
@@ -38,17 +39,14 @@ augroup vimrc
   autocmd BufWritePre,FileWritePre * :call s:TrimWhitespace()
 augroup end
 
+" plugin: fzf
 let &runtimepath .= ',' . fnameescape($HOMEBREW_PREFIX . '/opt/fzf')
-call plug#begin()
-  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
-  Plug 'itchyny/lightline.vim'
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'junegunn/fzf.vim'
-call plug#end()
 
+" plugin: catpuccing
 set termguicolors
 colorscheme catppuccin_mocha
 
+" plugin: lightline
 set noshowmode
 let g:lightline = {'colorscheme': 'catppuccin_mocha'}
 

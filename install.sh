@@ -2,6 +2,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+CURDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
+SOURCE=${CURDIR}/src
+
 link() {
 	local src="$1"
 	local dst="$2"
@@ -19,31 +22,32 @@ link() {
 	fi
 }
 
-install_file() {
-	local dname="$1"
-	local fname="$2"
-	local url="$3"
-	test -d "${dname}" || mkdir -p "${dname}"
-	test -f "${fname}" || curl -o "${dname}/${fname}" -fsSL "${url}"
+execute_make() {
+	local cfg_path=$1
+	local cfg_make=${cfg_path}/GNUmakefile
+	if [[ -f ${cfg_make} ]]; then
+		make -C "${cfg_path}"
+	fi
 }
 
-SRC=${PWD}/src
+process_config() {
+	mkdir -p "${HOME}/.config"
+	find "${SOURCE}/config" -type d -mindepth 1 -maxdepth 1 | while IFS= read -r cfg_path; do
+		cfg_name=$(basename "${cfg_path}")
+		link "${cfg_path}" "${HOME}/.config/${cfg_name}"
+		execute_make "${cfg_path}"
+	done
+}
 
-mkdir -p "${HOME}/.config"
-for app in bat eza fish ghostty git zellij; do
-	link "${SRC}/config/${app}" "${HOME}/.config/${app}"
+find "${SOURCE}" -mindepth 1 -maxdepth 1 | while IFS= read -r cfg_path; do
+	cfg_name=$(basename "${cfg_path}")
+	case "${cfg_name}" in
+	config)
+		process_config
+		;;
+	*)
+		link "${cfg_path}" "${HOME}/${cfg_name}"
+		execute_make "${cfg_path}"
+		;;
+	esac
 done
-
-link "${SRC}/bin" "${HOME}/bin"
-link "${SRC}/hushlogin" "${HOME}/.hushlogin"
-link "${SRC}/homebrew" "${HOME}/.homebrew"
-link "${SRC}/ssh" "${HOME}/.ssh"
-link "${SRC}/vim" "${HOME}/.vim"
-link "${SRC}/vimrc" "${HOME}/.vimrc"
-
-install_file \
-	~/.config/fish/themes "Catppuccin Mocha.theme" \
-	https://raw.githubusercontent.com/catppuccin/fish/refs/heads/main/themes/Catppuccin%20Mocha.theme
-
-fish -c "yes | fish_config theme save 'Catppuccin Mocha' --color-theme=dark"
-vim +PlugUpgrade +PlugUpdate +PlugClean +qa

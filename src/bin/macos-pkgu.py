@@ -48,7 +48,7 @@ if __name__ == "__main__":
         result = pkgutil("--only-dirs", "--files", package)
         for pkgdir in sorted(result.stdout.splitlines(), reverse=True):
             d = base / pkgdir
-            if d.exists():
+            if d.exists() and str(d) not in ["/Applications"]:
                 d.rmdir()
 
         pkgutil("--forget", package)

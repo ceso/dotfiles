@@ -30,8 +30,8 @@ if OS.mac?
     cask "font-jetbrains-mono"
     cask "font-jetbrains-mono-nerd-font"
     cask "ghostty"
-    cask "iina"
     cask "readest"
     cask "transmission"
     cask "visual-studio-code"
+    cask "vlc"
 end
