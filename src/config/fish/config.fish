@@ -28,7 +28,7 @@ end
 
 set -gx EDITOR vim
 set -gx PAGER bat
-set -gx COPIER_SETTINGS_PATH ~/.config/copier/settings.yaml
+set -gx COPIER_SETTINGS_PATH ~/.config/copier/settings.yml
 set -gx FZF_DEFAULT_COMMAND 'fd --type=file --hidden --follow'
 
 batman --export-env | source

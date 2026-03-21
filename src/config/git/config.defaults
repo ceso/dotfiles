@@ -1,5 +1,6 @@
 [alias]
 history = log --graph --pretty=format':%C(yellow)%h%Cblue%d%C(black) %s %Creset %an, %ad'
+brlog = log --graph --pretty=format':%h %s' --boundary origin/master...HEAD
 sync = ! git fetch -vaptuf && git checkout master && git pull
 undo = reset --soft HEAD~1
 

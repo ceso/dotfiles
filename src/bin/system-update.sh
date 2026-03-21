@@ -13,8 +13,8 @@ if command -v apt >/dev/null; then
 fi
 
 if command -v flatpak >/dev/null; then
-	sudo flatpak update --assumeyes --system
-	flatpak update --assumeyes --user
+	flatpak update --assumeyes
+	flatpak uninstall --unused
 fi
 
 if command -v snap >/dev/null; then
@@ -26,8 +26,4 @@ if command -v brew >/dev/null; then
 	brew upgrade
 	brew autoremove
 	brew cleanup --prune=all --scrub
-fi
-
-if command -v vim >/dev/null; then
-	vim -es +PlugUpgrade +PlugUpdate +PlugClean +qa || true
 fi
