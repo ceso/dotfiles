@@ -1,3 +1,0 @@
-# only used to develop some scripts
-jsonyx
-ruff

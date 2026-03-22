@@ -1,6 +1,0 @@
-auto-update = check
-auto-update-channel = stable
-command = direct:/usr/local/bin/fish
-font-size = 20
-window-width = 200
-window-height = 50

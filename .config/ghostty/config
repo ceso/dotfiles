@@ -1,0 +1,37 @@
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+quit-after-last-window-closed = true
+theme = Catppuccin Mocha
+window-width = 80
+window-height = 24
+scrollback-limit = 1000000
+
+# Keybindings
+# Zoom in
+keybind = ctrl+kp_add=increase_font_size:1
+# Zoom out
+keybind = ctrl+kp_subtract=decrease_font_size:1
+# Reset zoom to default
+keybind = ctrl+shift+kp_divide=reset_font_size
+# Navigate splits (WASD)
+keybind = alt+w=goto_split:top
+keybind = alt+s=goto_split:bottom
+keybind = alt+a=goto_split:left
+keybind = alt+d=goto_split:right
+# Split terminal horizontally
+keybind = ctrl+shift+h=new_split:down
+# Split terminal vertically
+keybind = ctrl+shift+b=new_split:right
+# Close current split/tab
+keybind = super+w=close_surface
+# Close window
+keybind = super+q=close_window
+# Toggle split zoom (fullscreen a single split)
+keybind = ctrl+shift+z=toggle_split_zoom
+# Navigate tabs
+keybind = ctrl+right=next_tab
+keybind = ctrl+left=previous_tab
+# Open new window
+keybind = ctrl+shift+n=new_window
+# Toggle dropdown terminal
+keybind = f12=toggle_quick_terminal

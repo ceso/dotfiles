@@ -1,0 +1,66 @@
+{
+  // ------------------------------------------
+  // Theme
+  // ------------------------------------------
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.iconTheme": "catppuccin-mocha",
+
+  // ------------------------------------------
+  // Editor
+  // ------------------------------------------
+  "editor.semanticHighlighting.enabled": true,
+  "editor.fontFamily": "'JetBrainsMono Nerd Font', monospace",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.bracketPairColorization.enabled": true,
+
+  // ------------------------------------------
+  // Terminal
+  // ------------------------------------------
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.integrated.profiles.linux": {
+    "fish": {
+      "path": "/home/linuxbrew/.linuxbrew/bin/fish"
+    }
+  },
+  "terminal.integrated.scrollback": 1000000,
+  "terminal.integrated.minimumContrastRatio": 1,
+
+  // ------------------------------------------
+  // Window
+  // ------------------------------------------
+  "window.titleBarStyle": "custom",
+
+  // ------------------------------------------
+  // Security hardening
+  // ------------------------------------------
+  "telemetry.telemetryLevel": "off",
+  "update.mode": "manual",
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false,
+  "security.workspace.trust.enabled": true,
+  "security.workspace.trust.untrustedFiles": "prompt",
+  "security.workspace.trust.startupPrompt": "always",
+  "remote.autoForwardPorts": false,
+  "http.proxyStrictSSL": true,
+  "workbench.enableExperiments": false,
+  "workbench.settings.enableNaturalLanguageSearch": false,
+
+  // ------------------------------------------
+  // Catppuccin settings
+  // ------------------------------------------
+  "catppuccin.accentColor": "mauve",
+  "catppuccin.boldKeywords": true,
+  "catppuccin.italicComments": true,
+  "catppuccin.italicKeywords": true,
+  "catppuccin.bracketMode": "rainbow",
+
+  // ------------------------------------------
+  // Claude Code hardening
+  // ------------------------------------------
+  "claudeCode.initialPermissionMode": "plan",
+  "claudeCode.allowDangerouslySkipPermissions": false,
+  "claudeCode.respectGitIgnore": true,
+  "claudeCode.autosave": true
+}
