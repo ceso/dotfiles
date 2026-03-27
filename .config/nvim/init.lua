@@ -18,6 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 
 vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
 vim.opt.formatoptions = "tcqr"
 vim.opt.laststatus = 2
 vim.opt.listchars = { eol = "¬", tab = "▸ ", trail = ".", precedes = "<", extends = ">" }
@@ -47,6 +48,7 @@ vim.opt.colorcolumn = "+1"
 vim.opt.virtualedit = "all"
 vim.opt.termguicolors = true
 vim.opt.showmode = false
+vim.opt.autowrite = true
 
 -- ------------------------------------------
 -- Autocommands
@@ -85,6 +87,8 @@ require("lazy").setup({
     config = function(_, opts)
       require("catppuccin").setup(opts)
       vim.cmd.colorscheme("catppuccin")
+      vim.api.nvim_set_hl(0, "CursorColumn", { link = "CursorLine" })
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = "#3b384a", bold = true })
     end,
   },
   {

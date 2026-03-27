@@ -27,7 +27,7 @@ keybind = super+w=close_surface
 # Close window
 keybind = super+q=close_window
 # Toggle split zoom (fullscreen a single split)
-keybind = ctrl+shift+z=toggle_split_zoom
+keybind = shift+ctrl+x=toggle_split_zoom
 # Navigate tabs
 keybind = ctrl+right=next_tab
 keybind = ctrl+left=previous_tab

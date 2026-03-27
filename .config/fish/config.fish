@@ -15,29 +15,32 @@ fish_add_path --path --append (
 
 set -e -Ugl fish_user_paths
 fish_add_path ~/.local/bin
+fish_add_path ~/bin
 
-/home/linuxbrew/.linuxbrew/bin/brew shellenv | source
-
-set -gx EDITOR vim
+set -gx EDITOR nvim
 set -gx PAGER bat
 set -gx COPIER_SETTINGS_PATH ~/.config/copier/settings.yaml
 set -gx FZF_DEFAULT_COMMAND 'fd --type=file --hidden --follow'
+set -x THEFUCK_OVERRIDDEN_ALIASES 'nvim,bat,nvimdiff,eza'
+set -g fish_escape_delay_ms 30
+
+/home/linuxbrew/.linuxbrew/bin/brew shellenv | source
 
 batman --export-env | source
 fzf --fish | source
 zoxide init fish | source
+thefuck --alias | source
 
 alias cat=bat
+alias vi=nvim
 alias vim=nvim
 alias vimdiff=nvimdiff
-alias ls="eza --classify=auto --color=auto --icons=auto -l -r -t modified"
-alias ll="eza --classify=auto --color=auto --icons=auto -l -a -r -t modified"
-alias la="eza --classify=auto --color=auto --icons=auto -l -a -h"
+alias ls="eza --color=auto --icons=auto"
+alias ll="eza --classify=auto --color=auto --icons=auto -l -r -t modified -h -F"
+alias la="eza --classify=auto --color=auto --icons=auto -l -a -r -t modified -h -F"
 alias lz="eza --classify=auto --color=auto --icons=auto -l -Z"
 alias laz="eza --classify=auto --color=auto --icons=auto -l -a -Z"
-
-# Double ESC to re-run last command with sudo
-bind \e\e sudo_last
+alias lg="eza --classify=auto --color=auto --icons=auto -l -a -r -t modified -h -F"
 
 if test -f ~/.config/fish/config.local.fish
     . ~/.config/fish/config.local.fish
