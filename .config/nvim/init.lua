@@ -12,18 +12,6 @@ dofile(config_dir .. "/conf.d/options.lua")
 dofile(config_dir .. "/conf.d/keymaps.lua")
 dofile(config_dir .. "/conf.d/autocmds.lua")
 
--- Plugin hooks (must be defined before vim.pack.add)
-vim.api.nvim_create_autocmd("PackChanged", {
-    callback = function(ev)
-        if ev.data.spec.name == "nvim-treesitter" and ev.data.kind == "update" then
-            if not ev.data.active then
-                vim.cmd.packadd("nvim-treesitter")
-            end
-            vim.cmd("TSUpdate")
-        end
-    end,
-})
-
 -- Plugins
 vim.pack.add({
     { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
