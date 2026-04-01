@@ -1,130 +1,98 @@
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        lazypath,
-    })
-end
-vim.opt.rtp:prepend(lazypath)
+-- ~/.config/nvim/init.lua
 
--- ------------------------------------------
--- Options
--- ------------------------------------------
--- UI Appearance
-vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
-vim.opt.laststatus = 2
-vim.opt.listchars = { eol = "¬", tab = "▸ ", trail = ".", precedes = "<", extends = ">" }
-vim.opt.number = true
-vim.opt.numberwidth = 4
-vim.opt.ruler = true
-vim.opt.rulerformat = "%l,%v"
-vim.opt.scrolloff = 10
-vim.opt.showmode = false
-vim.opt.termguicolors = true
-vim.opt.virtualedit = "all"
+vim.loader.enable()
 
--- Editing & Indentation
-vim.opt.autoindent = true
-vim.opt.smartindent = true
-vim.opt.expandtab = true
-vim.opt.shiftround = true
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
--- Formatting & Text Behavior
-vim.opt.formatoptions = "cqr"
-vim.opt.textwidth = 78
-vim.opt.colorcolumn = "+1"
-vim.opt.wrap = false
+local config_dir = vim.fn.stdpath("config")
 
--- Search & Navigation
-vim.opt.ignorecase = true
-vim.opt.incsearch = true
-vim.opt.infercase = true
-vim.opt.smartcase = true
-vim.opt.whichwrap = "<,>,h,l"
+-- Core settings
+dofile(config_dir .. "/conf.d/options.lua")
+dofile(config_dir .. "/conf.d/keymaps.lua")
+dofile(config_dir .. "/conf.d/autocmds.lua")
 
--- System & Behavior
-vim.opt.autowrite = true
-vim.opt.wildmenu = true
-
--- ------------------------------------------
--- Autocommands
--- ------------------------------------------
-vim.api.nvim_create_autocmd({ "BufWritePre", "FileWritePre" }, {
-    pattern = "*",
-    callback = function()
-        if not vim.bo.modifiable then
-            return
+-- Plugin hooks (must be defined before vim.pack.add)
+vim.api.nvim_create_autocmd("PackChanged", {
+    callback = function(ev)
+        if ev.data.spec.name == "nvim-treesitter" and ev.data.kind == "update" then
+            if not ev.data.active then
+                vim.cmd.packadd("nvim-treesitter")
+            end
+            vim.cmd("TSUpdate")
         end
-        local view = vim.fn.winsaveview()
-        vim.cmd([[silent! keeppatterns keepjumps %s/\s\+$//e]])
-        vim.cmd([[silent! keeppatterns keepjumps %s/\n\+\%$//e]])
-        vim.fn.winrestview(view)
     end,
 })
 
--- ------------------------------------------
--- Keymaps
--- ------------------------------------------
-vim.g.mapleader = " "
-
-vim.keymap.set("n", "<leader>cd", vim.cmd.Ex)
-vim.keymap.set("n", "<leader>fb", "<cmd>Buffers<cr>")
-vim.keymap.set("n", "<leader>ff", "<cmd>Files<cr>")
-vim.keymap.set("n", "<leader>fh", "<cmd>Helptags<cr>")
-vim.keymap.set("n", "<leader>gi", ":Rg ")
-
--- ------------------------------------------
 -- Plugins
--- ------------------------------------------
-require("lazy").setup({
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        priority = 1000,
-        lazy = false,
-        opts = {
-            flavour = "mocha",
-            auto_integrations = true, -- modern + robust
-        },
-        config = function(_, opts)
-            require("catppuccin").setup(opts)
-            vim.cmd.colorscheme("catppuccin-nvim")
-            vim.api.nvim_set_hl(0, "CursorColumn", { link = "CursorLine" })
-            vim.api.nvim_set_hl(0, "CursorLine", { bg = "#3b384a", bold = true })
-        end,
-    },
-    {
-        "nvim-lualine/lualine.nvim",
-        dependencies = { "catppuccin" },
-        config = function()
-            local theme = require("catppuccin.utils.lualine")("mocha")
+vim.pack.add({
+    { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+    "https://github.com/nvim-lualine/lualine.nvim",
+    "https://github.com/SmiteshP/nvim-navic",
+    "https://github.com/editorconfig/editorconfig-vim",
+    "https://github.com/lukas-reineke/indent-blankline.nvim",
+    "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/nvim-tree/nvim-tree.lua",
+    "https://github.com/nvim-tree/nvim-web-devicons",
+    "https://github.com/lewis6991/gitsigns.nvim",
+    "https://github.com/karb94/neoscroll.nvim",
+    "https://github.com/junegunn/fzf",
+    "https://github.com/junegunn/fzf.vim",
+    "http://github.com/akinsho/bufferline.nvim"
+})
 
-            require("lualine").setup({
-                options = {
-                    theme = theme,
-                },
-            })
-        end,
+-- Theme
+require("catppuccin").setup(dofile(config_dir .. "/conf.d/theme.lua"))
+vim.cmd.colorscheme("catppuccin-nvim")
+
+-- Treesitter
+require("nvim-treesitter").setup(dofile(config_dir .. "/conf.d/treesitter.lua"))
+
+-- Editor
+require("ibl").setup(dofile(config_dir .. "/conf.d/editor.lua"))
+
+-- File Tree
+require("nvim-tree").setup(dofile(config_dir .. "/conf.d/file_tree.lua"))
+
+-- fzf
+dofile(config_dir .. "/conf.d/fzf.lua")
+
+-- Bufferline
+require("bufferline").setup(dofile(config_dir .. "/conf.d/bufferline.lua"))
+
+-- Git
+require("gitsigns").setup(dofile(config_dir .. "/conf.d/gitsigns.lua"))
+
+-- Navigation
+require("neoscroll").setup()
+
+-- Statusline
+local navic = require("nvim-navic")
+navic.setup(dofile(config_dir .. "/conf.d/navic.lua"))
+--require("nvim-navic").setup(dofile(config_dir .. "/conf.d/navic.lua"))
+
+local lualine_theme = require("catppuccin.utils.lualine")("mocha")
+require("lualine").setup({
+    options = {
+        theme = lualine_theme,
     },
-    {
-        "editorconfig/editorconfig-vim"
-    },
-    {
-        "junegunn/fzf.vim",
-        dependencies = { "junegunn/fzf" },
+    sections = {
+        lualine_c = {
+            "filename",
+            {
+                function()
+                    return navic.get_location()
+                end,
+                cond = function()
+                    return navic.is_available()
+                end,
+            },
+        },
     },
 })
 
--- ------------------------------------------
 -- Local overrides
--- ------------------------------------------
-local local_config = vim.fn.stdpath("config") .. "/init.local.lua"
+local local_config = config_dir .. "/init.local.lua"
 if vim.fn.filereadable(local_config) == 1 then
     dofile(local_config)
 end
