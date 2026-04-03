@@ -15,6 +15,11 @@ dofile(config_dir .. "/conf.d/autocmds.lua")
 -- Plugins
 vim.pack.add({
     { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+    {
+        src = "https://github.com/saghen/blink.cmp",
+        name = "blink",
+        version = vim.version.range('1.x')
+    },
     "https://github.com/nvim-lualine/lualine.nvim",
     "https://github.com/SmiteshP/nvim-navic",
     "https://github.com/editorconfig/editorconfig-vim",
@@ -26,7 +31,7 @@ vim.pack.add({
     "https://github.com/karb94/neoscroll.nvim",
     "https://github.com/junegunn/fzf",
     "https://github.com/junegunn/fzf.vim",
-    "http://github.com/akinsho/bufferline.nvim"
+    "https://github.com/akinsho/bufferline.nvim",
 })
 
 -- Theme
@@ -50,6 +55,9 @@ require("bufferline").setup(dofile(config_dir .. "/conf.d/bufferline.lua"))
 
 -- Git
 require("gitsigns").setup(dofile(config_dir .. "/conf.d/gitsigns.lua"))
+
+-- Completion
+require("blink.cmp").setup(dofile(config_dir .. "/conf.d/blink.lua"))
 
 -- Navigation
 require("neoscroll").setup()

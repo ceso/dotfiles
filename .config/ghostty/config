@@ -5,8 +5,9 @@ theme = Catppuccin Mocha
 window-width = 80
 window-height = 24
 scrollback-limit = 1000000
+focus-follows-mouse = true
 
-# Keybindings
+# === Keybindings ===
 # Zoom in
 keybind = ctrl+kp_add=increase_font_size:1
 # Zoom out
