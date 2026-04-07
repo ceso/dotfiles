@@ -1,55 +1,120 @@
-set -g __prompt_color_ssh purple
-set -g __prompt_color_git yellow
-set -g __prompt_color_pwd cyan
-set -g __prompt_max_pwd_len 50
+set -g __prompt_color_env 40a02b
+set -g __prompt_color_git fab387
+set -g __prompt_color_k8s 04a5e5
+set -g __prompt_color_warning d20f39
+set -g __prompt_color_delimiter fab387
+set -g __prompt_color_time a6e3a1
 
+# output helper
 function __prompt_out
     set_color $argv[1]
     echo -ns $argv[2..]
     set_color normal
 end
 
-function __prompt_ssh
-    if set -q SSH_TTY
-        __prompt_out $__prompt_color_ssh "$hostname "
-    end
+# [user@host:path]
+function __prompt_identity
+    set -l host (hostname | cut -d . -f 1)
+    set -l path (string replace -- $HOME "~" $PWD)
+    __prompt_out $__prompt_color_env "[$USER@$host:$path]"
 end
 
+# (git)
 function __prompt_git
     set -l branch (git branch --show-current 2>/dev/null)
     or return
-    set -l dirty ""
-    if not git diff --quiet 2>/dev/null; or not git diff --cached --quiet 2>/dev/null
-        set dirty " ±"
+
+    set -l unstaged (git diff --shortstat 2>/dev/null)
+    set -l staged   (git diff --cached --shortstat 2>/dev/null)
+
+    if test -z "$unstaged$staged"
+        __prompt_out $__prompt_color_git "($branch)"
+        return
     end
-    __prompt_out $__prompt_color_git " [$branch$dirty]"
+
+    set -l added 0
+    set -l removed 0
+
+    for s in $unstaged $staged
+        set -l a (string replace -r '.* ([0-9]+) insertion.*' '$1' -- $s)
+        string match -qr '^[0-9]+$' -- $a; and set added (math $added + $a)
+
+        set -l r (string replace -r '.* ([0-9]+) deletion.*' '$1' -- $s)
+        string match -qr '^[0-9]+$' -- $r; and set removed (math $removed + $r)
+    end
+
+    __prompt_out $__prompt_color_git "($branch"
+
+    set -l printed 0
+
+    if test $added -gt 0
+        set_color green
+        echo -ns " +$added"
+        set_color normal
+        set printed 1
+    end
+
+    if test $removed -gt 0
+        set_color red
+        echo -ns " -$removed"
+        set_color normal
+        set printed 1
+    end
+
+    if test $printed -eq 0
+        __prompt_out $__prompt_color_git " ±"
+    end
+
+    echo -ns ")"
 end
 
-function __prompt_pwd
-    set -l dir (string replace -- $HOME "~" $PWD)
-    if test (string length -- $dir) -gt $__prompt_max_pwd_len
-        set -l parts (string split "/" -- $dir)
-        while test (string length -- $dir) -gt $__prompt_max_pwd_len; and test (count $parts) -gt 2
-            set parts "…" $parts[3..]
-            set dir (string join "/" -- $parts)
-        end
+# {k8s}
+function __prompt_k8s
+    command -v kubectx >/dev/null 2>&1
+    or return
+    command -v kubens >/dev/null 2>&1
+    or return
+
+    set -l ctx (kubectx -c 2>/dev/null)
+    test -n "$ctx"
+    or return
+
+    set -l ns (kubens -c 2>/dev/null)
+    if test -z "$ns"
+        set ns default
     end
-    __prompt_out $__prompt_color_pwd $dir
+
+    set -l value "$ctx/$ns"
+
+    if string match -qi '*prod*' -- $value
+        __prompt_out $__prompt_color_warning "{⚠️ $value ⚠️}"
+    else
+        __prompt_out $__prompt_color_k8s "{$value}"
+    end
 end
 
-function __prompt_status
-    for exit_code in $argv
-        if test $exit_code -ne 0
-            __prompt_out red " [$exit_code]"
-            break
-        end
-    end
-end
-
+# Fish prompt (main)
 function fish_prompt
-    set -l last_status $status $pipestatus
     echo
-    echo -ns (__prompt_ssh) (__prompt_pwd) (__prompt_git) (__prompt_status $last_status)
+    set_color $__prompt_color_delimiter
+    echo -ns "╭─"
+    set_color normal
+
+    __prompt_identity
+    __prompt_git
+    __prompt_k8s
+
     echo
-    echo -ns "❯ "
+    set_color $__prompt_color_delimiter
+    echo -ns "╰─"
+    set_color $__prompt_color_delimiter
+    printf '⋊> '
+    set_color normal
+end
+
+# Fish right prompt (time)
+function fish_right_prompt
+    set_color $__prompt_color_time
+    printf '(%s) ' (date '+%H:%M:%S %Z')
+    set_color normal
 end

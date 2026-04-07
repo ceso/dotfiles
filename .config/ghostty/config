@@ -7,6 +7,11 @@ window-height = 24
 scrollback-limit = 1000000
 focus-follows-mouse = true
 
+# === Terminfo ===
+# https://ghostty.org/docs/help/terminfo
+shell-integration-features = sudo
+shell-integration-features = ssh-terminfo,ssh-env
+
 # === Keybindings ===
 # Zoom in
 keybind = ctrl+kp_add=increase_font_size:1
