@@ -3,11 +3,12 @@
 # Build Ghostty terminal from source on Debian
 # Artifacts are installed to /output (bin/, share/)
 
-ARG DEBIAN_VERSION=bookworm
+ARG DEBIAN_VERSION=trixie
 FROM debian:${DEBIAN_VERSION}
 
 ARG GHOSTTY_VERSION
 ARG ZIG_VERSION
+ARG INSTALL_DIR
 ARG ARCH=x86_64
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -44,7 +45,7 @@ RUN curl -fSL "https://release.files.ghostty.org/${GHOSTTY_VERSION}/ghostty-${GH
 
 # Build with release optimizations
 WORKDIR /build/ghostty-${GHOSTTY_VERSION}
-RUN zig build --summary all --prefix /output \
+RUN zig build --summary all --prefix "${INSTALL_DIR}" \
                         -Doptimize=ReleaseFast \
                         -Dversion-string="${GHOSTTY_VERSION}" \
                         -Dcpu=native \
@@ -53,4 +54,8 @@ RUN zig build --summary all --prefix /output \
                         -Demit-themes=true
 
 # Verify
-RUN /output/bin/ghostty --version
+RUN "${INSTALL_DIR}/bin/ghostty" --version
+
+RUN sed -i 's#/output##g' "${INSTALL_DIR}/share/systemd/user/app-com.mitchellh.ghostty.service"
+RUN sed -i 's#/output##g' "${INSTALL_DIR}/share/applications/com.mitchellh.ghostty.desktop"
+RUN sed -i 's#/output##g' "${INSTALL_DIR}/share/dbus-1/services/com.mitchellh.ghostty.service"
