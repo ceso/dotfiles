@@ -1,3 +1,6 @@
+# ~/.config/fish/functions/fish_title.fish
+
 function fish_title
-    prompt_pwd
+    echo "[$USER@$hostname:"(__prompt_path_short)"]"
 end
+

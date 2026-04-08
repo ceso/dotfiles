@@ -1,7 +1,8 @@
+# ~/.config/fish/functions/fish_prompt.fish
+
 set -g __prompt_color_env 40a02b
 set -g __prompt_color_git fab387
 set -g __prompt_color_k8s 04a5e5
-set -g __prompt_color_warning d20f39
 set -g __prompt_color_delimiter fab387
 set -g __prompt_color_time a6e3a1
 
@@ -12,11 +13,18 @@ function __prompt_out
     set_color normal
 end
 
+function __prompt_path_short
+    set -l fish_prompt_pwd_dir_length 1
+    set -l short (prompt_pwd)
+    set -l full (string replace -- $HOME '~' $PWD)
+    set -l first (string match -r '^~/[^/]+' -- $full)
+    and set short (string replace -r -- '^~/[^/]+' $first $short)
+    echo $short
+end
+
 # [user@host:path]
 function __prompt_identity
-    set -l host (hostname | cut -d . -f 1)
-    set -l path (string replace -- $HOME "~" $PWD)
-    __prompt_out $__prompt_color_env "[$USER@$host:$path]"
+    __prompt_out $__prompt_color_env "[$USER@$hostname:"(string replace -- $HOME '~' $PWD)"]"
 end
 
 # (git)
@@ -70,19 +78,14 @@ end
 
 # {k8s}
 function __prompt_k8s
-    command -v kubectx >/dev/null 2>&1
-    or return
-    command -v kubens >/dev/null 2>&1
-    or return
+    command -q kubectx; or return
+    command -q kubens; or return
 
     set -l ctx (kubectx -c 2>/dev/null)
-    test -n "$ctx"
-    or return
+    test -n "$ctx"; or return
 
     set -l ns (kubens -c 2>/dev/null)
-    if test -z "$ns"
-        set ns default
-    end
+    test -z "$ns"; and set ns default
 
     set -l value "$ctx/$ns"
 
@@ -118,3 +121,4 @@ function fish_right_prompt
     printf '(%s) ' (date '+%H:%M:%S %Z')
     set_color normal
 end
+

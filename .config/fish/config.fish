@@ -1,3 +1,5 @@
+# ~/.config/fish/config.fish
+
 status is-interactive; or return
 
 # sudo chfn -o other='umask=077'
