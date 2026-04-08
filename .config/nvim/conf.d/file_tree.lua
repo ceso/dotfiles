@@ -7,16 +7,31 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end,
 })
 
+vim.api.nvim_create_autocmd("VimResized", {
+    callback = function()
+        local api = require("nvim-tree.api")
+        if api.tree.is_visible() then
+            api.tree.close()
+            api.tree.open()
+        end
+    end,
+})
+
 return {
     sort = { sorter = "case_sensitive" },
     view = {
-        width = 60,
+        width = "30%",
         side = "left",
         preserve_window_proportions = true,
     },
     renderer = { group_empty = true,
         highlight_opened_files = "name",
         add_trailing = false,
+        root_folder_label = function(path)
+            return (vim.fn.fnamemodify(path, ":~"):gsub("(~/[^/]+)(.*)/([^/]+)$", function(head, mid, last)
+                return head .. mid:gsub("/([^/][^/]?[^/]?)[^/]*", "/%1") .. "/" .. last
+            end))
+        end,
     },
     filters = { dotfiles = false },
     -- disable inotify watchers
