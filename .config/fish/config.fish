@@ -1,7 +1,6 @@
 # ~/.config/fish/config.fish
 
 status is-interactive; or return
-
 # sudo chfn -o other='umask=077'
 if test (umask) != "0077"
     umask 0077
@@ -25,6 +24,7 @@ set -gx COPIER_SETTINGS_PATH ~/.config/copier/settings.yaml
 set -gx FZF_DEFAULT_COMMAND 'fd --type=file --hidden --follow'
 set -x THEFUCK_OVERRIDDEN_ALIASES 'nvim,bat,nvimdiff,eza'
 set -g fish_escape_delay_ms 30
+set -g fish_greeting ''
 
 /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
 
@@ -33,10 +33,12 @@ fzf --fish | source
 zoxide init fish | source
 thefuck --alias | source
 
-alias cat=bat
 alias vi=nvim
 alias vim=nvim
 alias vimdiff=nvimdiff
+alias k=kubectl
+alias cat=bat
+alias kat="bat --paging=never"
 alias ls="eza --color=auto --icons=auto"
 alias ll="eza --classify=auto --color=auto --icons=auto -l -r -t modified -h -F"
 alias la="eza --classify=auto --color=auto --icons=auto -l -a -r -t modified -h -F"

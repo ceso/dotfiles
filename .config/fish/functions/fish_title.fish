@@ -1,6 +1,7 @@
-# ~/.config/fish/functions/fish_title.fish
-
 function fish_title
-    echo "[$USER@$hostname:"(__prompt_path_short)"]"
+    set -l warn ""
+    if string match -qi '*prod*' -- (hostname)
+        set warn "⚠️ "
+    end
+    echo "$warn"(prompt_identity)
 end
-
