@@ -9,6 +9,7 @@ focus-follows-mouse = true
 
 # === Terminfo ===
 # https://ghostty.org/docs/help/terminfo
+shell-integration-features = ssh-terminfo,ssh-env
 shell-integration-features = sudo
 
 # === Keybindings ===
