@@ -1,3 +1,5 @@
+# ~/.config/fish/functions/prompt_git.fish
+
 set -g __fish_git_prompt_showdirtystate 1
 set -g __fish_git_prompt_showstashstate 1
 set -g __fish_git_prompt_showuntrackedfiles 1

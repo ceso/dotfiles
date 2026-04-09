@@ -1,3 +1,5 @@
+# ~/.config/fish/functions/prompt_k8s.fish
+
 set -g __prompt_color_k8s 04a5e5
 set -g __prompt_color_warning red
 
